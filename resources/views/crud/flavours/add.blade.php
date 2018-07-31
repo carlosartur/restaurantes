@@ -27,20 +27,6 @@
                             <p class="help-block">Nome do sabor.</p>
                         </div>
                     </div>
-                    {{-- <div class="form-group">
-                        <label class="col-md-4 control-label" for="old_value">Preço</label>
-                        <div class="col-md-4">
-                            <input id="old_value" value="{{ old('old_value') }}" name="old_value" class="form-control" type="text" placeholder="Preço" required="">
-                            <p class="help-block">Preço</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="new_value">Preço promocional</label>
-                        <div class="col-md-4">
-                            <input id="new_value" value="{{ old('new_value') }}" name="new_value" class="form-control" type="text" placeholder="Preço promocional">
-                            <p class="help-block">Preço promocional.</p>
-                        </div>
-                    </div> --}}
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="category">Categoria</label>
                         <div class="col-md-4">
@@ -53,15 +39,6 @@
                             <p class="help-block">Categoria.</p>
                         </div>
                     </div>
-                    @foreach($Sizes as $size)
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="old_value_{{ $size->id }}">Preço Tamanho {{ $size->name }}</label>
-                            <div class="col-md-4">
-                                <input id="old_value" name="value_size[{{ $size->id }}]" class="form-control" type="text" placeholder="Preço" required="">
-                                <p class="help-block">Preço Tamanho {{ $size->name }}</p>
-                            </div>
-                        </div>
-                    @endforeach
                     @foreach($Sizes as $size)
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="old_value_{{ $size->id }}">Preço Tamanho {{ $size->name }}</label>

@@ -9,15 +9,14 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-
+ */
 
 Auth::routes();
 Route::get('/', 'InitController@homePage');
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('admin.home');
 });
-Route::middleware('auth')->prefix('admin')->group(function() {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
     Route::get('/edit_home_page/{saved?}', 'HomepageController@editHomePageForm')->name('admin.homepage.editHomePageForm');
     Route::post('/edit_home_page', 'HomepageController@editHomePageEdit')->name('admin.homepage.editHomePageEdit');
@@ -43,8 +42,12 @@ Route::middleware('auth')->prefix('admin')->group(function() {
     Route::post('/retrieve_size', 'SizeController@index')->name('admin.size.retrieve');
     Route::post('/save_size/{id?}', 'SizeController@save')->name('admin.size.save');
 
-    Route::get('/autocomplete_people', 'OrderController@autocompletePeople')->name('admin.autocompletePeople');
+    Route::get('/autocomplete_people/{nome?}', 'OrderController@autocompletePeople')->name('admin.autocomplete_people');
+    Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
     Route::get('/order_start', 'OrderController@startOrder')->name('admin.startOrder');
+    Route::get('/cart', 'OrderController@cart')->name('admin.cart');
+    Route::get('/remove_cart_item/{id}', 'OrderController@removeCartItem')->name('admin.remove_cart_item');
+    Route::post('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
     Route::post('/order_step2', 'OrderController@step2')->name('admin.step2');
     Route::post('/order_step3', 'OrderController@step3')->name('admin.step3');
     Route::post('/order_ok', 'OrderController@order_ok')->name('admin.order_ok');
@@ -61,7 +64,9 @@ Route::get('images/{filename}', function ($filename) {
     $ds = DIRECTORY_SEPARATOR;
     $path = storage_path() . "{$ds}app{$ds}public{$ds}images{$ds}" . $filename;
 
-    if(!File::exists($path)) abort(404);
+    if (!File::exists($path)) {
+        abort(404);
+    }
 
     $file = File::get($path);
     $type = File::mimeType($path);

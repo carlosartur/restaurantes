@@ -82,6 +82,9 @@
                                     <li>
                                         <a href="{{ route("admin.startOrder") }}">Pedido</a>
                                     </li>
+                                     <li>
+                                        <a href="{{ route("admin.cart") }}">Carrinho</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route("admin.homepage.editHomePageForm") }}">Personalizar página</a>
                                     </li>

@@ -4,67 +4,77 @@
 <div class='container'>
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Pizza Tamanho {{ $size->name }} | Sabores {{ implode(', ', $flavours->pluck('name')->all()) }} | Preço {{ number_format($prize, 2, ',', '') }}</div>
+        <div class="panel-heading">Carrinho</div>
         <form class="form-horizontal" method='post' action='{{ route("admin.order_ok") }}'>
 
             <div class="panel-body">
-                <fieldset>
-                    {{ csrf_field() }}
-                    <!-- Form Name -->
-                    <!-- Appended checkbox -->
-                    @if (count($errors) > 0 )
-                        <div class='alert alert-danger'>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Nome</label>
-                        <div class="col-md-4">
-                            <input id="name" value="{{ old('name') }}" name="name" class="form-control" type="text" placeholder="Nome da pessoa" required="">
-                            <p class="help-block">Nome da pessoa.</p>
-                        </div>
+                <!-- Form Name -->
+                <!-- Appended checkbox -->
+                @if (count($errors) > 0 )
+                    <div class='alert alert-danger'>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Endereco</label>
-                        <div class="col-md-4">
-                            <input id="address" value="{{ old('address') }}" name="address" class="form-control" type="text" placeholder="Endereco" required="">
-                            <p class="help-block">Endereco da pessoa.</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Bairro</label>
-                        <div class="col-md-4">
-                            <input id="neighborhood" value="{{ old('neighborhood') }}" name="neighborhood" class="form-control" type="text" placeholder="Bairro" required="">
-                            <p class="help-block">Bairro</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Cidade</label>
-                        <div class="col-md-4">
-                            <input id="city" value="{{ old('city') }}" name="city" class="form-control" type="text" placeholder="Cidade" required="">
-                            <p class="help-block">Cidade</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">CEP</label>
-                        <div class="col-md-4">
-                            <input id="shipcode" value="{{ old('shipcode') }}" name="shipcode" class="form-control" type="text" placeholder="CEP" required="">
-                            <p class="help-block">CEP</p>
-                        </div>
-                    </div>
-                </fieldset>
-                <input type="hidden" name="size" value="{{ $size->id }}">
-                @foreach($flavours as $flavour)
-                    <input type="hidden" name="flavour[]" value="{{ $flavour->id }}">
-                @endforeach
+                @endif
+                @php
+                    $total = 0;
+                    $count = 0;
+                @endphp
+                <table class="table table-striped table-bordered table-list">
+                    <thead>
+                        <th>Tamanho</th>
+                        <th>Sabores</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </thead>
+                    <tbody>
+                        @foreach ($items as $key => $item)
+                            <tr>
+                                <td>
+                                    {{ $item['size']->name }}
+                                </td>
+                                <td>
+                                    {{ implode(', ', $item['flavours']->pluck('name')->all()) }}
+                                </td>
+                                <td>
+                                    {{ number_format($item['prize'], 2, ',', '.') }}
+                                </td>
+                                <td>
+                                    <div class="form-group text-right">
+                                        <div class="col-xs-12">
+                                            <a href="{{ route('admin.remove_cart_item', $key) }}" id="submit" name="submit" class="btn btn-warning control-label">Remover</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @php
+                                $total += $item['prize'];
+                                $count++;
+                            @endphp
+                        @endforeach
+                         <tr>
+                            <td>
+                                TOTAIS
+                            </td>
+                            <td>
+                                {{ $count }} itens
+                            </td>
+                            <td>
+                                {{ number_format($total, 2, ',', '.') }}
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="panel-footer">
                 <div class="form-group text-right">
                     <div class="col-xs-12">
+                        <a class="btn btn-warning control-label" href="{{ route("admin.startOrder") }}">Adicionar mais um produto</a>
                         <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
                     </div>
                 </div>

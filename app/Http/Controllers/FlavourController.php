@@ -109,7 +109,6 @@ class FlavourController extends Controller
         $Flavour->new_value = $new_value;
         $Flavour->category_id = $category_id;
         $Flavour->save();
-
         foreach (request()->value_size as $key => $value) {
             $FlavourSize = new FlavourSize();
             $FlavourSize->add($Flavour, Size::find($key), $value);

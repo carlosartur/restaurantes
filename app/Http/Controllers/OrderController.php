@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\Flavour;
+use App\FlavourSize;
 use App\Order;
 use App\Person;
 use App\Size;
@@ -11,21 +12,55 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function autocompletePeople(Request $request)
+    /**
+     * Auto complete people
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function autocompletePeople(Request $request, $name)
     {
         $person = Person
-            ::where('name', 'LIKE', "%" . $request->name . "%")
+            ::where('name', 'LIKE', "%" . $name . "%")
             ->with('address')
             ->get();
         return response()->json($person);
     }
 
+    /**
+     * Auto complete people
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function autocompleteCity(Request $request, $name)
+    {
+        $city = Address
+            ::where('city', 'LIKE', "%" . $name . "%")
+            ->get()
+            ->pluck('city')
+            ->all();
+        return response()->json($city);
+    }
+
+    /**
+     * First step of order, select size
+     *
+     * @param Request $request
+     * @return void
+     */
     public function startOrder(Request $request)
     {
         $sizes = Size::get();
         return view('order.start')->with(compact("sizes"));
     }
 
+    /**
+     * Second step of order, select flavour(s)
+     *
+     * @param Request $request
+     * @return void
+     */
     public function step2(Request $request)
     {
         $size = Size::find($request->size);
@@ -33,27 +68,84 @@ class OrderController extends Controller
         return view('order.step2')->with(compact("size", "flavours"));
     }
 
+    /**
+     * Third step of order, add item to cart
+     *
+     * @param Request $request
+     * @return void
+     */
     public function step3(Request $request)
     {
         $size = Size::find($request->size);
         $prize = $this->getPrize($size, $request->flavour);
-        return view('order.step3')->with(compact("size", "flavours", "prize"));
+        $flavours = Flavour::whereIn('id', $request->flavour)->get();
+        $key = $this->createKey(compact("size", "flavours", "prize"));
+        $request->session()->put("items.$key", compact("size", "flavours", "prize"));
+        return redirect()->route('admin.cart');
     }
 
+    /**
+     * Show cart
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function cart(Request $request)
+    {
+        $items = $request->session()->get('items');
+        return view('order.cart')->with(compact("items"));
+    }
+
+    /**
+     * Remove item from cart
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
+    public function removeCartItem(Request $request, $id)
+    {
+        $request->session()->forget("items.$id");
+        return redirect()->route('admin.cart');
+    }
+
+    /**
+     * Create cart id of a item
+     *
+     * @param [type] $obj
+     * @return void
+     */
+    private function createKey($obj)
+    {
+        return md5(json_encode($obj) . rand() . time());
+    }
+
+    /**
+     * Get price of a item, using size/flavours selected
+     *
+     * @param [type] $size
+     * @param [type] $flavours
+     * @return void
+     */
     private function getPrize($size, $flavours)
     {
-        if ($flavours->count() == 1) {
-            return $flavours->first()->old_value;
+        $price = 0;
+        foreach ($flavours as $flavour) {
+            $flavour_size = (new FlavourSize())->getThis(Flavour::find($flavour), $size);
+            $price += $flavour_size->value * (1 / (count($flavours)));
         }
-        $how_many_slices_per_flavour = floor($size->slices / ($size->flavours ?: 1));
-        $prize = 0;
-        $flavours = Flavour::whereIn('id', $request->flavour)->get();
+        return $price;
+    }
 
-        foreach ($flavours as $flavor) {
-            $prize_per_flavour = $flavor->old_value / ($size->slices ?: 1);
-            $prize += $prize_per_flavour * $how_many_slices_per_flavour;
-        }
-        return $prize;
+    /**
+     * Create person for a order
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function orderPerson(Request $request)
+    {
+        return view('order.person');
     }
 
     public function order_ok(Request $request)
