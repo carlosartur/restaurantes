@@ -44,6 +44,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     Route::get('/autocomplete_people/{nome?}', 'OrderController@autocompletePeople')->name('admin.autocomplete_people');
     Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
+    Route::get('/autocomplete_neighborhood/{nome?}', 'OrderController@autocompleteNeighborhood')->name('admin.autocomplete_neighborhood');
     Route::get('/order_start', 'OrderController@startOrder')->name('admin.startOrder');
     Route::get('/cart', 'OrderController@cart')->name('admin.cart');
     Route::get('/remove_cart_item/{id}', 'OrderController@removeCartItem')->name('admin.remove_cart_item');

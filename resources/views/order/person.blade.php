@@ -92,7 +92,7 @@
 						if(data.length > 0) {
                             for(var i in data) {
                                 autocomplete_options.push({ 
-                                    value : data[i].id,
+                                    value : data[i].name,
                                     label : `${data[i].name} - ${data[i].address.neighborhood}`
                                 });
                             }
@@ -103,7 +103,7 @@
                 select: function(event, ui) {
                     var data = {};
                     for (var i in autocomplete_response) {
-                        if (autocomplete_response[i]['id'] == ui['item']['value']) {
+                        if (autocomplete_response[i]['name'] == ui['item']['value']) {
                             data = autocomplete_response[i];
                             break;
                         }
@@ -114,17 +114,6 @@
                     $("#neighborhood").val(address_inputs.neighborhood);
                     $("#city").val(address_inputs.city);
                     $("#shipcode").val(address_inputs.shipcode);
-                },
-                change: function(event, ui) {
-                    var data = {};
-                    for (var i in autocomplete_response) {
-                        if (autocomplete_response[i]['id'] == ui['item']['value']) {
-                            data = autocomplete_response[i];
-                            break;
-                        }
-                    }
-                    address_inputs = data.address;
-                    $("#name").val(data.name);
                 }
             });
 

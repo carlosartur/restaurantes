@@ -6,6 +6,7 @@ use App\Address;
 use App\Flavour;
 use App\FlavourSize;
 use App\Order;
+use App\OrderItems;
 use App\Person;
 use App\Size;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Auto complete people
+     * Auto complete city
      *
      * @param Request $request
      * @return void
@@ -42,7 +43,21 @@ class OrderController extends Controller
             ->all();
         return response()->json($city);
     }
-
+    /**
+     * Auto complete neighborhood
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function autocompleteNeighborhood(Request $request, $name)
+    {
+        $neighborhood = Address
+            ::where('neighborhood', 'LIKE', "%" . $name . "%")
+            ->get()
+            ->pluck('neighborhood')
+            ->all();
+        return response()->json($neighborhood);
+    }
     /**
      * First step of order, select size
      *
@@ -150,21 +165,46 @@ class OrderController extends Controller
 
     public function order_ok(Request $request)
     {
-        $address = new Address();
-        $address->address = $request->has("address") ? $request->address : '';
-        $address->neighborhood = $request->has("neighborhood") ? $request->neighborhood : '';
-        $address->city = $request->has("city") ? $request->city : '';
-        $address->shipcode = $request->has("shipcode") ? $request->shipcode : '';
-        $address->save();
+        $items = $request->session()->get('items');
 
-        $person = new Person();
-        $person->name = $request->has("name") ? $request->name : '';
-        $person->address_id = $address->id;
-        $person->save();
+        if ((!$request->has("id")) || (!$request->id)) {
+            $address = new Address();
+            $address->address = $request->has("address") ? $request->address : '';
+            $address->neighborhood = $request->has("neighborhood") ? $request->neighborhood : '';
+            $address->city = $request->has("city") ? $request->city : '';
+            $address->shipcode = $request->has("shipcode") ? $request->shipcode : '';
+            $address->save();
+
+            $person = new Person();
+            $person->name = $request->has("name") ? $request->name : '';
+            $person->address_id = $address->id;
+            $person->save();
+        } else {
+            $person = Person::find($request->id);
+            $address = Address::find($person->address_id);
+        }
 
         $order = new Order();
-        $order->data = json_encode($request->all());
+        $order->data = json_encode($items);
         $order->people_id = $person->id;
+        $order->value = array_reduce($request->session()->get('items'), function ($carry, $item) {
+            return $carry + $item['prize'];
+        });
         $order->save();
+
+        $OrderItemsList = [];
+        $count = 0;
+        foreach ($items as $item) {
+            $OrderItems = new OrderItems();
+            $OrderItems->size_id = $item['size']->id;
+            $OrderItems->flavours = implode(' | ', $item['flavours']->pluck('name')->all());
+            $OrderItems->value = $item['prize'];
+            $OrderItems->save();
+            $OrderItemsList[$count]['item'] = $OrderItems;
+            $OrderItemsList[$count]['size'] = $item['size'];
+            $count++;
+        }
+
+        return view('order.view')->with(compact('OrderItemsList', 'order', 'person', 'address'));
     }
 }
