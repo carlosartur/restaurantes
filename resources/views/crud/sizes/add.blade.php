@@ -39,6 +39,19 @@
                             <input value="{{ old("flavours") }}" type="number" name="flavours" id="flavours" required="" class="form-control input-md" >
                             <p class="help-block">Sabores.</p>
                         </div>
+                    </div>                    
+                    <div class="form-group col-xs-12">
+                        <label class="col-md-4 control-label" for="categories">Categorias deste tamanho</label>
+                        <div class="col-md-4">
+                            <select name="categories" multiple="" id="categories" class="form-control input-md">
+                                @foreach($Categories as $Category)
+                                    <option value="{{ $Category->id }}">
+                                        {{ $Category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <p class="help-block">Categorias.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-footer">
@@ -57,4 +70,34 @@
 
 @push('scripts')
     <script src="{{ url("/js/script.js") }}"></script>
+    <script>
+        var templates_multiselect = {
+            filter: '<li class="multiselect-item filter"><div class="input-group"><input class="form-control multiselect-search" type="text"></div></li>',
+            filterClearBtn: '',
+        }
+        $(function(){
+            $("#categories").multiselect({
+                buttonText: function(options, select) {
+                    switch (options.length) {
+                        case 0:
+                            return 'Selecione uma espécie';
+                        case 1:
+                            return options.html();
+                        default:
+                            return `${options.length} espécies selecionadas`;
+                    }
+                },
+                filterPlaceholder: 'Busca',
+                enableFiltering: true,
+                enableCaseInsensitiveFiltering : true,
+                includeSelectAllOption: true,
+                maxHeight: 400,
+                buttonWidth: '400px',
+                templates: templates_multiselect,
+                selectAllText: 'Selecionar todos',
+                onChange: function() {
+                }
+            });
+        });
+    </script>
 @endpush

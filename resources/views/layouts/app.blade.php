@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ url("/css/creative.css") }}">
     <link rel="stylesheet" href="{{ url("/css/jquery-ui.min.css") }}">
     <link rel="stylesheet" href="{{ url("/css/jquery-ui.theme.min.css") }}">
+    <link rel="stylesheet" href="{{ url("/css/multiselect/bootstrap-multiselect.css") }}">
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -126,13 +128,14 @@
     <!-- jQuery -->
     <script src="{{ url("/js/jquery.min.js") }}"></script>
     <script src="{{ url("/js/jquery-ui.min.js") }}"></script>
-    <script src="{{ url("/js/bootstrap.min.js") }}"></script>
+    {{--  <script src="{{ url("/js/bootstrap.min.js") }}"></script>  --}}
     <!-- Scripts -->
-    <script src="{{ url("/js/app.js") }}"></script>
     <script src="{{ url("/js/jquery.mask.min.js") }}"></script>
 
     <script src="{{ url("/js/sweetalert.min.js") }}"></script>
     <script src="{{ url("/js/app.js") }}"></script>
+    <script src="{{ url("/js/multiselect/bootstrap-multiselect.js") }}"></script>
+
     @stack('scripts')
 </body>
 </html>
