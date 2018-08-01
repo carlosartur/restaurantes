@@ -15,8 +15,9 @@
     <link rel="stylesheet" href="{{ url("/css/jquery-ui.structure.css") }}">
     <link rel="stylesheet" href="{{ url("/css/magnific-popup.css") }}">
 
-    <link rel="stylesheet" href="{{ url("/css/bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ url("/css/bootstrap.min.css") }}"> 
     <link rel="stylesheet" href="{{ url("/css/jquery-ui.structure.min.css") }}">
+
 
     <link rel="stylesheet" href="{{ url("/css/bootstrap-theme.min.css") }}">
     <link rel="stylesheet" href="{{ url("/css/jquery-ui.css") }}">
@@ -32,7 +33,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ url("/css/app.css") }}" rel="stylesheet">
 
     <script>
         window.Laravel = {!! json_encode([
