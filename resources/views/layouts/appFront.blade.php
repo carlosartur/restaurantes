@@ -1011,6 +1011,7 @@ window.addEventListener("load",setaImagem,false);
 
    <div id="slider">
       <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/imagem_front.jpg alt="" /></a>
+          <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/inaugura.png" alt="" /></a>
       <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/imagem_front.jpg" alt="" /></a>
    </div>
 
