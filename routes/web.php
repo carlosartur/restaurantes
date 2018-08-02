@@ -16,6 +16,9 @@ Route::get('/', 'InitController@homePage');
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('admin.home');
 });
+
+ Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
     Route::get('/edit_home_page/{saved?}', 'HomepageController@editHomePageForm')->name('admin.homepage.editHomePageForm');

@@ -1,0 +1,220 @@
+        .estruturamodal_ {
+            width: 100%;
+            background: white;
+            display: inline-block;
+            position: relative;
+            padding: 0;
+        }
+        
+        .headermodal_ {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #e00000;
+        }
+        
+        .footermodal_ {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+        }
+        
+        .corpomodal_ {
+            width: 100%;
+            min-height: 200px;
+            display: inline-block;
+            background: #fff;
+        }
+        /* */
+        
+        .headermodal_corpo {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            height: 160px;
+        }
+        
+        h2.headermodal_titulopadrao * {
+            float: left;
+        }
+        
+        h2.headermodal_titulopadrao span {
+            font-size: 30px;
+            color: #fff;
+            padding: 11px 0 0 15px;
+        }
+        
+        h2.headermodal_titulopadrao {
+            display: inline-block;
+            margin: 15px auto;
+        }
+        /* pergunta promoção */
+        
+        h1.question_nomepromocao {
+            font-size: 26px;
+            /* display: inline-block; */
+            text-align: center;
+            margin: 12px auto;
+            width: 70%;
+            font-family: Androgyne;
+            color: #007300;
+        }
+        
+        p.question_descricaopromocao {
+            font-size: 22px;
+            text-align: center;
+            margin: 12px auto;
+            color: #007300;
+            padding: 0 5px;
+        }
+        
+        .question_botoespromocao {
+            /* display: inline-block; */
+            text-align: center;
+            margin: 32px auto;
+        }
+        
+        .btn_aceito {
+            display: block;
+            font-size: 30px;
+            padding: 15px;
+            background: #0062ab;
+            border-radius: 5px;
+            border-bottom: 3px solid #004276;
+            font-family: 'Open Sans', sans-serif;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            width: 350px;
+            margin: 12px auto;
+        }
+        
+        .btn_aceito:hover {
+            background: #087607;
+            border-bottom: 3px solid #014f00;
+        }
+        
+        .btn_aceito.prm_inativo {
+            background: #ccc;
+            border-bottom: 3px solid #8e8e8e;
+        }
+        
+        .btn_aceito.prm_inativo:hover {
+            background: rgb(228, 0, 0);
+            border-bottom: 3px solid #a40000;
+        }
+        /* promo padrao */
+        
+        h2.headermodal_titulopadrao.promorend {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            position: relative;
+            /*padding-bottom: 30px;*/
+        }
+        
+        span.realprecopromo {
+            position: absolute;
+            width: 156px;
+            right: 0;
+            top: 90px;
+        }
+        
+        #promocao_nomePromocao {
+            width: 750px;
+            text-align: left;
+            padding-top: 0px;
+            font-size: 28px;
+            margin-top: -13px;
+        }
+        
+        #promocao_descricaoPromocao {
+            width: 820px;
+            text-align: left;
+            padding-top: 3px;
+            font-size: 16px;
+            font-weight: 400;
+            max-height: 46px;
+            overflow: hidden;
+        }
+        /* aba itens promocao */
+        
+        ul.abasitenspromo {
+            width: 100%;
+            position: absolute;
+            top: -42px;
+            padding-left: 10px;
+        }
+        
+        ul.abasitenspromo li {
+            display: inline-block;
+            margin: 2px;
+            border-radius: 5px 5px 0 0;
+            background: #dedede;
+            padding: 7px 15px 8px 15px;
+            font-size: 17px;
+            cursor: pointer;
+            margin-right: 5px;
+            color: #6f6f6f;
+            border: 1px solid #d4d4d4;
+        }
+        
+        ul.abasitenspromo li.abaprmactive {
+            color: #014f00;
+            border-bottom: 1px solid #fff;
+            background: #ffffff;
+        }
+        
+        .promocao_compregangeitens_area {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            border-top: 1px solid #d4d4d4;
+        }
+        /* lista de itens */
+        
+        .lista_itenspromocao {
+            margin-top: 10px;
+        }
+        
+        .lista_itens_aba {
+            /*height: 450px;*/
+            height: auto;
+            max-height: 450px;
+            overflow: auto;
+        }
+        
+        .btnaddpromopedido {
+            cursor: not-allowed;
+            font-family: "Open Sans";
+            color: #6f6f6f;
+            background-color: #d4d4d4;
+            border-bottom: 3px solid #a5a5a5;
+            text-decoration: none;
+            font-weight: normal;
+            font-size: 16px;
+            padding: 14px 7px;
+            border-radius: 3px;
+            height: 50px;
+            margin: 15px auto;
+            display: block;
+            width: 300px;
+            text-transform: uppercase;
+        }
+        
+        a.btnaddpromopedido.ativo {
+            background-color: #087607;
+            border-bottom: 3px solid #014f00;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .footermodal_corpo {
+            display: inline-block;
+            width: 100%;
+            padding: 5px;
+            text-align: center;
+        }
