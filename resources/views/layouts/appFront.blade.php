@@ -875,26 +875,151 @@
     <!-- /.modal -->
     <section id="corposlide">
 
-        <div id="slideShow">
-            <div id="slide-left">
-                <div id="slideTopo" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
-                    <div class="owl-wrapper-outer">
-                        <div class="owl-wrapper" style="width: 9510px; left: 0px; display: block; transition: all 0ms ease; transform: translate3d(0px, 0px, 0px); transform-origin: 792.5px center 0px; perspective-origin: 792.5px center;">
-                            <div class="owl-item" style="width: 1585px;">
-                                <a title="Big Combo Quinta" href="/combo/big-combo-quinta-feira/" class=""><img class="" alt="Big Combo Quinta" title="Big Combo Quinta" src="https://static.expressodelivery.com.br/imagens/banners/164/Expresso-Delivery_9f2a22fd54cf7ef5e70e6cb4e52594bb.png"></a>
-                            </div>
-                            <div class="owl-item" style="width: 1585px;">
-                                <a title="Combo Trio" href="/combo/combo-trio-burgao/?ref=banner-home" class=""><img class="" alt="Combo Trio" title="Combo Trio" src="https://static.expressodelivery.com.br/imagens/banners/167/Expresso-Delivery_5050838678da1a8746df236336bdd9da.png"></a>
-                            </div>
-                            <div class="owl-item" style="width: 1585px;">
-                                <a title="orcamento-expresso-delivery" href="https://materiais.expressodelivery.com.br/orcamento-demo" class=""><img class="" alt="orcamento-expresso-delivery" title="orcamento-expresso-delivery" src="https://static.expressodelivery.com.br/imagens/banners/35249/Expresso-Delivery_9ec7fcff4f1d448e1b772ce3d87c6b48.png"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <section id="corposlide">
 
-        </div>
+        <style>
+.trs {-webkit-transition:all ease-out 0.5s;
+    -moz-transition:all ease-out 0.5s;
+    -o-transition:all ease-out 0.5s;
+    -ms-transition:all ease-out 0.5s;
+    transition:all ease-out 0.5s;}  
+#slider {position: relative; z-index: 1;}
+#slider a { position: absolute; top: 0; left: 0; opacity: 0;filter:alpha(opacity=0);}
+.ativo {opacity: 1!important; filter:alpha(opacity=100)!important;}
+
+/*controladores*/
+span {background: rgb(224, 0, 0); cursor: pointer; opacity: 0;filter:alpha(opacity=0); position: absolute; bottom: 40%; width: 43px; height: 43px; z-index: 5;}
+.next {right: 19px;}
+.next:before,.next:after {left: 21px;}
+.next:before {
+    -webkit-transform: rotate(-42deg);
+    top: 5px;
+}
+.next:after {
+    -webkit-transform: rotate(-132deg);
+    top: 19px;
+}
+.next:before,.next:after,.prev:before,.prev:after {content: "";
+    height: 20px;
+    background: #fff;
+    width: 1px;
+    position: absolute;
+}
+.prev {left: 0px;}
+.prev:before,.prev:after {left: 18px;}
+.prev:before {
+    -webkit-transform: rotate(42deg);
+    top: 5px;
+}
+.prev:after {
+    -webkit-transform: rotate(132deg);
+    top: 19px;
+}
+
+figure:hover span {opacity: 0.76;filter:alpha(opacity=76);}
+    figure {
+    max-width: 1200px;
+    height: 463px;
+    position: relative;
+    overflow: hidden;
+    margin: 0px auto;
+}
+
+figcaption {padding-left: 20px;color: #fff; font-family: "Kaushan Script","Lato","arial"; font-size: 22px; background: rgba(0, 0, 0, 0.12); width: 98.4%; position: absolute; bottom: 0; left: 0; line-height: 55px; height: 55px; z-index: 5}
+</style>
+
+<script type="text/javascript">
+function setaImagem(){
+    var settings = {
+        primeiraImg: function(){
+            elemento = document.querySelector("#slider a:first-child");
+            elemento.classList.add("ativo");
+            this.legenda(elemento);
+        },
+
+        slide: function(){
+            elemento = document.querySelector(".ativo");
+
+            if(elemento.nextElementSibling){
+                elemento.nextElementSibling.classList.add("ativo");
+                settings.legenda(elemento.nextElementSibling);
+                elemento.classList.remove("ativo");
+            }else{
+                elemento.classList.remove("ativo");
+                settings.primeiraImg();
+            }
+
+        },
+
+        proximo: function(){
+            clearInterval(intervalo);
+            elemento = document.querySelector(".ativo");
+
+            if(elemento.nextElementSibling){
+                elemento.nextElementSibling.classList.add("ativo");
+                settings.legenda(elemento.nextElementSibling);
+                elemento.classList.remove("ativo");
+            }else{
+                elemento.classList.remove("ativo");
+                settings.primeiraImg();
+            }
+            intervalo = setInterval(settings.slide,4000);
+        },
+
+        anterior: function(){
+            clearInterval(intervalo);
+            elemento = document.querySelector(".ativo");
+
+            if(elemento.previousElementSibling){
+                elemento.previousElementSibling.classList.add("ativo");
+                settings.legenda(elemento.previousElementSibling);
+                elemento.classList.remove("ativo");
+            }else{
+                elemento.classList.remove("ativo");                     
+                elemento = document.querySelector("a:last-child");
+                elemento.classList.add("ativo");
+                this.legenda(elemento);
+            }
+            intervalo = setInterval(settings.slide,4000);
+        },
+
+        legenda: function(obj){
+            var legenda = obj.querySelector("img").getAttribute("alt");
+            document.querySelector("figcaption").innerHTML = legenda;
+        }
+
+    }
+
+    //chama o slide
+    settings.primeiraImg();
+
+    //chama a legenda
+    settings.legenda(elemento);
+
+    //chama o slide à um determinado tempo
+    var intervalo = setInterval(settings.slide,4000);
+    document.querySelector(".next").addEventListener("click",settings.proximo,false);
+    document.querySelector(".prev").addEventListener("click",settings.anterior,false);
+}
+
+window.addEventListener("load",setaImagem,false);
+</script>
+
+<figure>
+   <span class="trs next"></span>
+   <span class="trs prev"></span>
+
+   <div id="slider">
+      <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/imagem_front.jpg alt="" /></a>
+      <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/imagem_front.jpg" alt="" /></a>
+   </div>
+
+   <figcaption></figcaption>
+</figure>
+
+
+
+    </section>
     </section>
     <!-- pizza-maker -->
 
