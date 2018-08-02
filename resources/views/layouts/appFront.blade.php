@@ -1010,9 +1010,9 @@ window.addEventListener("load",setaImagem,false);
    <span class="trs prev"></span>
 
    <div id="slider">
-      <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/imagem_front.jpg alt="" /></a>
-          <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/inaugura.png" alt="" /></a>
-      <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/imagem_front.jpg" alt="" /></a>
+      <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/monte.png" alt="" /></a>
+     m <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/inaugura.png" alt="" /></a>
+      <a href="#" class="trs"><img src="http://www.cheffdapizza.com.br/restaurantes/public/img/pizza2.jpg" alt="" /></a>
    </div>
 
    <figcaption></figcaption>
