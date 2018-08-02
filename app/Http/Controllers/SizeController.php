@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CategoriesSize;
 use App\Category;
 use App\Size;
 use Illuminate\Http\Request;
@@ -34,9 +35,10 @@ class SizeController extends Controller
         if (empty($Size)) {
             return view('404');
         }
+        $Categories = Category::all();
 
         return view('crud.sizes.edit')
-            ->with(compact('Size'));
+            ->with(compact('Size', 'Categories'));
     }
 
     /**
@@ -61,6 +63,11 @@ class SizeController extends Controller
         $Size->flavours = $flavours;
         $Size->slices = $slices;
         $Size->save();
+        $values = $request->has('values') ? $request->values : [];
+        foreach ($request->categories as $category_id) {
+            $value = isset($values[$category_id]) ? $values[$category_id] : 0;
+            (new CategoriesSize())->add(Category::find($category_id), $Size, $value);
+        }
         return redirect()->action('SizeController@index');
     }
 

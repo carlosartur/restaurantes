@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('admin.home');
 });
 
- Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
@@ -35,6 +35,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/edit_category/{id}', 'CategoryController@edit')->name('admin.category.edit');
     Route::get('/add_category', 'CategoryController@add')->name('admin.category.add');
     Route::get('/delete_category/{id}', 'CategoryController@delete')->name('admin.category.delete');
+    Route::get('/get_sizes_prices/{id?}', 'CategoryController@getSizesPrices')->name('admin.category.getSizesPrices');
     Route::post('/retrieve_category', 'CategoryController@retrieve')->name('admin.category.retrieve');
     Route::post('/save_category/{id?}', 'CategoryController@save')->name('admin.category.save');
 

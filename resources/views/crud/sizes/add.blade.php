@@ -7,7 +7,7 @@
         <div class="panel-heading">Adicionar Tamanho</div>
         <form class="form-horizontal" method='post' action='{{ action("SizeController@save") }}'>
             <fieldset>
-                <div class="panel-body">
+                <div class="panel-body" id="form_size">
                     {{ csrf_field() }}
                     <!-- Appended checkbox -->
                     @if(count($errors) > 0)
@@ -27,23 +27,23 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Pedaços</label>
+                        <label class="col-md-4 control-label" for="slices">Fatias</label>
                         <div class="col-md-4">
-                            <input value="{{ old("slices") }}" type="number" name="slices" id="slices" required="" class="form-control input-md">
-                            <p class="help-block">Pedaços.</p>
+                            <input value="{{ old("slices") ?? 1 }}" type="number" min="1" step="1" name="slices" id="slices" required="" class="form-control input-md">
+                            <p class="help-block">Fatias.</p>
                         </div>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Sabores</label>
+                        <label class="col-md-4 control-label" for="flavours">Sabores</label>
                         <div class="col-md-4">
-                            <input value="{{ old("flavours") }}" type="number" name="flavours" id="flavours" required="" class="form-control input-md" >
+                            <input value="{{ old("flavours") ?? 1 }}" type="number" min="1" step="1" name="flavours" id="flavours" required="" class="form-control input-md" >
                             <p class="help-block">Sabores.</p>
                         </div>
                     </div>                    
                     <div class="form-group col-xs-12">
                         <label class="col-md-4 control-label" for="categories">Categorias deste tamanho</label>
                         <div class="col-md-4">
-                            <select name="categories" multiple="" id="categories" class="form-control input-md">
+                            <select name="categories[]" multiple="" id="categories" class="form-control input-md">
                                 @foreach($Categories as $Category)
                                     <option value="{{ $Category->id }}">
                                         {{ $Category->name }}
@@ -70,34 +70,5 @@
 
 @push('scripts')
     <script src="{{ url("/js/script.js") }}"></script>
-    <script>
-        var templates_multiselect = {
-            filter: '<li class="multiselect-item filter"><div class="input-group"><input class="form-control multiselect-search" type="text"></div></li>',
-            filterClearBtn: '',
-        }
-        $(function(){
-            $("#categories").multiselect({
-                buttonText: function(options, select) {
-                    switch (options.length) {
-                        case 0:
-                            return 'Selecione uma espécie';
-                        case 1:
-                            return options.html();
-                        default:
-                            return `${options.length} espécies selecionadas`;
-                    }
-                },
-                filterPlaceholder: 'Busca',
-                enableFiltering: true,
-                enableCaseInsensitiveFiltering : true,
-                includeSelectAllOption: true,
-                maxHeight: 400,
-                buttonWidth: '400px',
-                templates: templates_multiselect,
-                selectAllText: 'Selecionar todos',
-                onChange: function() {
-                }
-            });
-        });
-    </script>
+    <script src="{{ url("/js/sizes.js") }}"></script>
 @endpush

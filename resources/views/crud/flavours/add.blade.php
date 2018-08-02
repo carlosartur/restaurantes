@@ -39,15 +39,7 @@
                             <p class="help-block">Categoria.</p>
                         </div>
                     </div>
-                    @foreach($Sizes as $size)
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="old_value_{{ $size->id }}">Preço Tamanho {{ $size->name }}</label>
-                            <div class="col-md-4">
-                                <input id="old_value" name="value_size[{{ $size->id }}]" class="form-control" type="text" placeholder="Preço" required="">
-                                <p class="help-block">Preço Tamanho {{ $size->name }}</p>
-                            </div>
-                        </div>
-                    @endforeach
+                    <span id="input_forms"><span>
                 </fieldset>
             </div>
             <div class="panel-footer">
@@ -57,6 +49,7 @@
                     </div>
                 </div>
             </div>
+            <input id="route" type="hidden" value="{{ route('admin.category.getSizesPrices') }}">
         </form>
     </div>
 </div>
