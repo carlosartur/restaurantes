@@ -888,7 +888,7 @@
 .ativo {opacity: 1!important; filter:alpha(opacity=100)!important;}
 
 /*controladores*/
-span {background: rgb(224, 0, 0); cursor: pointer; opacity: 0;filter:alpha(opacity=0); position: absolute; bottom: 40%; width: 43px; height: 43px; z-index: 5;}
+span #yeah{background: rgb(224, 0, 0); cursor: pointer; opacity: 0;filter:alpha(opacity=0); position: absolute; bottom: 40%; width: 43px; height: 43px; z-index: 5;}
 .next {right: 19px;}
 .next:before,.next:after {left: 21px;}
 .next:before {
