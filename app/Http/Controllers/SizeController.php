@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Category;
 use App\Size;
+use Illuminate\Http\Request;
 
 class SizeController extends Controller
 {
@@ -82,7 +83,8 @@ class SizeController extends Controller
      */
     public function add()
     {
-        return view('crud.sizes.add');
+        $Categories = Category::all();
+        return view('crud.sizes.add')->with(compact('Categories'));
     }
 
     /**
@@ -101,17 +103,17 @@ class SizeController extends Controller
         $id = null
     ) {
         $validate = Validator::make([
-                'nome do sabor' => $name,
-                'valor' => $old_value,
-                'categoria' => $category_id
-            ], [
-                'nome do sabor' => 'required|min:4',
-                'valor' => 'required',
-                'categoria' => 'required'
+            'nome do sabor' => $name,
+            'valor' => $old_value,
+            'categoria' => $category_id,
+        ], [
+            'nome do sabor' => 'required|min:4',
+            'valor' => 'required',
+            'categoria' => 'required',
 
-            ], [
-                'required' => ':attribute é obrigatório.',
-                'min' => ':attribute precisa ter no mínimo 4 caracteres.'
+        ], [
+            'required' => ':attribute é obrigatório.',
+            'min' => ':attribute precisa ter no mínimo 4 caracteres.',
         ]);
         if ($validate->fails()) {
             $action = "SizeController@$action";
