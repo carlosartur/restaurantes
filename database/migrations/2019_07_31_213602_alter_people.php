@@ -16,7 +16,8 @@ class AlterPeople extends Migration
         Schema::table('people', function (Blueprint $table) {
             $table->date('birthday')->nullable();
             $table->string('phone')->nullable();
-            $table->string('comments')->nullable();
+            $table->longText('comments')->nullable();
+            $table->longText('preferences')->nullable();
         });
         Schema::table('addresses', function (Blueprint $table) {
             $table->string('reference')->nullable();

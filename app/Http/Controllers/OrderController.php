@@ -190,6 +190,7 @@ class OrderController extends Controller
         $person->birthday = $request->has("birthday") ? $request->birthday : null;
         $person->phone = $request->has("phone") ? $request->phone : '';
         $person->comments = $request->has("comments") ? $request->comments : '';
+        $person->preferences = $request->has("preferences") ? $request->preferences : '';
         $person->address_id = $address->id;
         $person->save();
 

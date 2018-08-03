@@ -44,6 +44,15 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-12">
+                        <label class="col-md-4 control-label" for="preferences">Preferências</label>
+                        <div class="col-md-4">
+                            <textarea name="preferences" id="preferences" class="form-control" placeholder="Preferências" required="">
+                                {{ old('preferences') }}
+                            </textarea>
+                            <p class="help-block">Preferências</p>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-12">
                         <label class="col-md-4 control-label" for="comments">Observações</label>
                         <div class="col-md-4">
                             <textarea name="comments" id="comments" class="form-control" placeholder="Observações" required="">
@@ -142,7 +151,8 @@
                     $("#id").val(data.id);
                     $("#birthday").val(data.birthday);
                     $("#phone").val(data.phone);
-                    $("#comments").val(data.comments);
+                    $("#comments").text(data.comments ? data.comments : '');
+                    $("#preferences").text(data.preferences ? data.preferences : '');
                     $("#address").val(address_inputs.address);
                     $("#neighborhood").val(address_inputs.neighborhood);
                     $("#city").val(address_inputs.city);
