@@ -888,7 +888,7 @@
 .ativo {opacity: 1!important; filter:alpha(opacity=100)!important;}
 
 /*controladores*/
-span {background: rgb(224, 0, 0); cursor: pointer; opacity: 0;filter:alpha(opacity=0); position: absolute; bottom: 40%; width: 43px; height: 43px; z-index: 5;}
+span #yeah{background: rgb(224, 0, 0); cursor: pointer; opacity: 0;filter:alpha(opacity=0); position: absolute; bottom: 40%; width: 43px; height: 43px; z-index: 5;}
 .next {right: 19px;}
 .next:before,.next:after {left: 21px;}
 .next:before {
@@ -1314,7 +1314,7 @@ window.addEventListener("load",setaImagem,false);
                 <div class="contentInterno">
 
                     <ul class="cidatendidas">
-                        <li class="cidadeatend cidselecinada" data-codcid="1">Matão/SP</li>
+                        <li class="cidadeatend cidselecinada" data-codcid="1">Capoeiras/RS</li>
                     </ul>
                     <div class="bairros showbairro bairrocid1"><span class="nomesdosbairros">Bairro Alto<small class="txEntrBairro">Taxa Entrega: R$ 5.00</small></span><span class="nomesdosbairros">Centro<small class="txEntrBairro">Taxa Entrega: R$ 5.00</small></span><span class="nomesdosbairros">Jd. do Bosque<small class="txEntrBairro">Taxa Entrega: R$ 5.00</small></span><span class="nomesdosbairros">Jd. Paraíso<small class="txEntrBairro">Taxa Entrega: R$ 5.00</small></span><span class="nomesdosbairros">Residencial Monte Carlo<small class="txEntrBairro">Taxa Entrega: R$ 5.00</small></span><span class="nomesdosbairros">Santa Rosa<small class="txEntrBairro">Taxa Entrega: R$ 5.00</small></span></div>
 
@@ -1365,7 +1365,7 @@ window.addEventListener("load",setaImagem,false);
                 <div class="box-footer">
                     <h4><span class="icon32fo" id="ifo-mapa"></span> ÁREA DE ENTREGA</h4>
                     <p>
-                        Matão/SP
+                       Av. Patricío Caldeiras de Andrade - Capoeiras, Florianópolis-SC
                         <br><a href="#" class="linkbairros" style="color:#0084ff;text-decoration:underline;">Ver bairros atendidos</a>
                     </p>
                 </div>
@@ -1402,14 +1402,9 @@ window.addEventListener("load",setaImagem,false);
             <!-- coluna -->
         </div>
         <!-- container -->
-        <p class="creditos">Sistema <a href="http://expressodelivery.com.br/" title="Expresso Delivery" class="expresso trackclickTarget_edlv" data-locallink="fodapedesktop_acessarsitedodesenvolvedor-linkexpresso" target="_blank">Cheff Pizza</a><a href="http://www.cheffdapizza.com.br/" title="Prog Informática" class="prog trackclickTarget_edlv" data-locallink="fodapedesktop_acessarsitedodesenvolvedor-linkprog" target="blank">Cheff Pizzas</a> © Todos os direitos reservados</p>
+        <p class="creditos">Sistema <a href="http://chefedapizza.com.br/" title="Expresso Delivery" class="expresso trackclickTarget_edlv" target="_blank">Cheff Pizza</a> © Todos os direitos reservados</p>
     </footer>
 
-    <noscript>
-        <div style="display:inline;">
-            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/942394689/?value=0&guid=ON&script=0" />
-        </div>
-    </noscript>
 
     <script type="text/javascript" async="" src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/e2912655-7080-4b31-98b3-f286702e2e5e-loader.js"></script>
     <!--rd station-->
