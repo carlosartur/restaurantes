@@ -7,11 +7,11 @@ $(function () {
         buttonText: function (options, select) {
             switch (options.length) {
                 case 0:
-                    return 'Selecione uma categoria';
+                    return 'Selecione uma tipo de produto';
                 case 1:
                     return options.html();
                 default:
-                    return `${options.length} categorias selecionadas`;
+                    return `${options.length} tipo de produtos selecionadas`;
             }
         },
         filterPlaceholder: 'Busca',
@@ -26,7 +26,7 @@ $(function () {
             if (checked) {
                 let name = option.html().trim();
                 let input = `<div class="form-group col-xs-12" id="div_${val}">
-                            <label class="col-md-4 control-label" for="flavours">Valor para categoria ${name}</label>
+                            <label class="col-md-4 control-label" for="flavours">Valor para tipo de produto ${name}</label>
                             <div class="col-md-4">
                                 <input type="number" min="0" value="1" step=".01" name="values[${val}]" id="values_${val}" required="" class="form-control input-md" >
                                 <p class="help-block">Sabores.</p>

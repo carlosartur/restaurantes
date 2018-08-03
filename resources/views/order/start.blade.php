@@ -5,7 +5,7 @@
     <div class="col-md-6">
         <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">Montar pedido</div>
+            <div class="panel-heading">Pedido - {{ session()->get('person')['person']['name'] }}</div>
             <form class="form-horizontal" method='post' action='{{ route("admin.step3") }}'>
                 <div class="panel-body">
                     <fieldset>
@@ -22,15 +22,15 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="categories">Categoria</label>
+                            <label class="col-md-4 control-label" for="categories">tipo de produto</label>
                             <div class="col-md-4">
                                 <select id="categories" name="categories" class="form-control input">
-                                    <option value="">Selecione uma categoria</option>
+                                    <option value="">Selecione um tipo de produto</option>
                                     @foreach ($categories as $key => $value)
                                         <option value="{{ $value->id }}" {{ $value->id == old('size') ? 'selected' : '' }}>{{ $value->name }}</option>
                                     @endforeach
                                 </select>
-                                <p class="help-block">Categoria.</p>
+                                <p class="help-block">tipo de produto.</p>
                             </div>
                         </div>
                         <div id="sizes_div"></div>
@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <form class="form-horizontal" method='post' action='{{ route("admin.order_person") }}'>
+        <form class="form-horizontal" method='post' action='{{ route("admin.order_ok") }}'>
             {{ csrf_field() }}
             <div class="panel panel-default">
                 <!-- Default panel contents -->

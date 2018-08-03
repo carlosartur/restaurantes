@@ -107,9 +107,9 @@ class CategoryController extends Controller
     private function validateInput($name, $action, $id = null)
     {
         $validate = Validator::make([
-            'nome da categoria' => $name,
+            'nome da tipo de produto' => $name,
         ], [
-            'nome da categoria' => 'required|min:4',
+            'nome da tipo de produto' => 'required|min:4',
         ], [
             'required' => ':attribute é obrigatório.',
             'min' => ':attribute precisa ter no mínimo 4 caracteres.',

@@ -28,15 +28,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="category">Categoria</label>
+                        <label class="col-md-4 control-label" for="category">tipo de produto</label>
                         <div class="col-md-4">
                             <select id="category" name="category" class="form-control input">
-                                <option value="">Selecione uma categoria</option>
+                                <option value="">Selecione uma tipo de produto</option>
                                 @foreach ($Categories as $key => $value)
                                     <option value="{{ $value->id }}" {{ $value->id == old('category') ? 'selected' : '' }}>{{ $value->name }}</option>
                                 @endforeach
                             </select>
-                            <p class="help-block">Categoria.</p>
+                            <p class="help-block">tipo de produto.</p>
                         </div>
                     </div>
                     <span id="input_forms"><span>

@@ -4,7 +4,7 @@
 <div class='container'>
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Adicionar categoria</div>
+        <div class="panel-heading">Adicionar tipo de produto</div>
         <form class="form-horizontal" method='post' action='{{ action("CategoryController@save") }}'>
             <fieldset>
                 <div class="panel-body">
@@ -22,8 +22,8 @@
                     <div class="form-group col-xs-12">
                         <label class="col-md-4 control-label" for="name">Nome</label>
                         <div class="col-md-4">
-                            <input id="name" value="{{ old('name') }}" name="name" class="form-control" type="text" placeholder="Nome da categoria" required="">
-                            <p class="help-block">Nome da categoria.</p>
+                            <input id="name" value="{{ old('name') }}" name="name" class="form-control" type="text" placeholder="Nome da tipo de produto" required="">
+                            <p class="help-block">Nome da tipo de produto.</p>
                         </div>
                     </div>
                 </div>

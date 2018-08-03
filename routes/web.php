@@ -53,7 +53,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/cart', 'OrderController@cart')->name('admin.cart');
     Route::get('/remove_cart_item/{id}', 'OrderController@removeCartItem')->name('admin.remove_cart_item');
     Route::get('/order_step2/{size_id?}', 'OrderController@step2')->name('admin.step2');
-    Route::post('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
+    Route::post('/new_person', 'OrderController@newPerson')->name('admin.new_person');
+    Route::get('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
     Route::post('/order_step3', 'OrderController@step3')->name('admin.step3');
     Route::post('/order_ok', 'OrderController@order_ok')->name('admin.order_ok');
 

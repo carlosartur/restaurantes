@@ -21,7 +21,7 @@ $(document).ready(function () {
                 $("#input_forms").append(input);
             }
         }).fail(function () {
-            swal("Houve um erro ao obter os preços por tamanho desta categoria.");
+            swal("Houve um erro ao obter os preços por tamanho desta tipo de produto.");
         });
     });
 });

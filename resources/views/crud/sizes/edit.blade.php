@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="categories">Categorias deste tamanho</label>
+                        <label class="col-md-4 control-label" for="categories">tipo de produtos deste tamanho</label>
                         <div class="col-md-4">
                             <select name="categories[]" multiple="" id="categories" class="form-control input-md">
                                 @foreach($Categories as $Category)
@@ -52,15 +52,15 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <p class="help-block">Categorias.</p>
+                            <p class="help-block">tipo de produtos.</p>
                         </div>
                     </div>
                     @foreach ($Size->categories as $category)
                         <div class="form-group col-xs-12" id="div_{{ $category->id }}">
-                            <label class="col-md-4 control-label" for="flavours">Valor para categoria {{ $category->name }}</label>
+                            <label class="col-md-4 control-label" for="flavours">Valor para tipo de produto {{ $category->name }}</label>
                             <div class="col-md-4">
                                 <input type="number" min="0" value="{{ $category->pivot->value }}" step=".01" name="values[{{ $category->id }}]" id="values_{{ $category->id }}" required="" class="form-control input-md">
-                                <p class="help-block">Valor para categoria {{ $category->name }}</p>
+                                <p class="help-block">Valor para tipo de produto {{ $category->name }}</p>
                             </div>
                         </div>
                     @endforeach

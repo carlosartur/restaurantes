@@ -27,7 +27,7 @@ var getSizes = function() {
       $("#sizes_div").append(div);
     })
     .fail(function() {
-      swal("Houve um erro ao obter os tamanhos desta categoria.");
+      swal("Houve um erro ao obter os tamanhos desta tipo de produto.");
     });
 };
 

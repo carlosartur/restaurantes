@@ -164,27 +164,51 @@ class OrderController extends Controller
         return view('order.person');
     }
 
-    public function order_ok(Request $request)
+    /**
+     * Create person for a order in db
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function newPerson(Request $request)
     {
-        $items = $request->session()->get('items');
-
         if ((!$request->has("id")) || (!$request->id)) {
             $address = new Address();
-            $address->address = $request->has("address") ? $request->address : '';
-            $address->neighborhood = $request->has("neighborhood") ? $request->neighborhood : '';
-            $address->city = $request->has("city") ? $request->city : '';
-            $address->shipcode = $request->has("shipcode") ? $request->shipcode : '';
-            $address->save();
-
             $person = new Person();
-            $person->name = $request->has("name") ? $request->name : '';
-            $person->address_id = $address->id;
-            $person->save();
         } else {
             $person = Person::find($request->id);
             $address = Address::find($person->address_id);
         }
+        $address->address = $request->has("address") ? $request->address : '';
+        $address->neighborhood = $request->has("neighborhood") ? $request->neighborhood : '';
+        $address->city = $request->has("city") ? $request->city : '';
+        $address->shipcode = $request->has("shipcode") ? $request->shipcode : '';
+        $address->reference = $request->has("reference") ? $request->reference : '';
+        $address->save();
 
+        $person->name = $request->has("name") ? $request->name : '';
+        $person->birthday = $request->has("birthday") ? $request->birthday : null;
+        $person->phone = $request->has("phone") ? $request->phone : '';
+        $person->comments = $request->has("comments") ? $request->comments : '';
+        $person->address_id = $address->id;
+        $person->save();
+
+        $request->session()->put("person", compact("person", "address"));
+        return redirect()->route('admin.startOrder');
+    }
+
+    /**
+     * Create order on database
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function order_ok(Request $request)
+    {
+        $items = $request->session()->get('items');
+        $person = $request->session()->get('person')['person'];
+        $address = $request->session()->get('address');
+        $address = $person->address;
         $order = new Order();
         $order->data = json_encode($items);
         $order->people_id = $person->id;
