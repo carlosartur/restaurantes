@@ -11,4 +11,9 @@ class Category extends Model
      * @var string
      */
     protected $table = 'categories';
+
+    public function sizes()
+    {
+        return $this->belongsToMany('App\Size', 'categories_sizes')->withPivot('value');
+    }
 }

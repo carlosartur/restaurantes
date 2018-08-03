@@ -10,9 +10,9 @@
             <legend>Listar sabores</legend>
 
             <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Categoria</label>
+                <label class="col-md-4 control-label" for="name">tipo de produto</label>
                 <div class="col-md-4">
-                    <input id="category" value="{{ $category }}" name="category" type="search" placeholder="Categoria" class="form-control input-md">
+                    <input id="category" value="{{ $category }}" name="category" type="search" placeholder="tipo de produto" class="form-control input-md">
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
         <table class='table table-bordered table-hover table-striped'>
             <tr>
                 <td>Nome sabor</td>
-                <td>Categoria</td>
+                <td>tipo de produto</td>
                 <td>Valor</td>
                 {{-- <td>Valor promocional</td> --}}
                 <td>Açoes</td>

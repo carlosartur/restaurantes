@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('admin.home');
 });
 
- Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
@@ -35,6 +35,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/edit_category/{id}', 'CategoryController@edit')->name('admin.category.edit');
     Route::get('/add_category', 'CategoryController@add')->name('admin.category.add');
     Route::get('/delete_category/{id}', 'CategoryController@delete')->name('admin.category.delete');
+    Route::get('/get_sizes_prices/{id?}', 'CategoryController@getSizesPrices')->name('admin.category.getSizesPrices');
     Route::post('/retrieve_category', 'CategoryController@retrieve')->name('admin.category.retrieve');
     Route::post('/save_category/{id?}', 'CategoryController@save')->name('admin.category.save');
 
@@ -51,8 +52,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/order_start', 'OrderController@startOrder')->name('admin.startOrder');
     Route::get('/cart', 'OrderController@cart')->name('admin.cart');
     Route::get('/remove_cart_item/{id}', 'OrderController@removeCartItem')->name('admin.remove_cart_item');
-    Route::post('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
-    Route::post('/order_step2', 'OrderController@step2')->name('admin.step2');
+    Route::get('/order_step2/{size_id?}', 'OrderController@step2')->name('admin.step2');
+    Route::post('/new_person', 'OrderController@newPerson')->name('admin.new_person');
+    Route::get('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
     Route::post('/order_step3', 'OrderController@step3')->name('admin.step3');
     Route::post('/order_ok', 'OrderController@order_ok')->name('admin.order_ok');
 

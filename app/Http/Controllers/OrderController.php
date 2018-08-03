@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Category;
 use App\Flavour;
 use App\FlavourSize;
 use App\Order;
@@ -66,8 +67,8 @@ class OrderController extends Controller
      */
     public function startOrder(Request $request)
     {
-        $sizes = Size::get();
-        return view('order.start')->with(compact("sizes"));
+        $categories = Category::all();
+        return view('order.start')->with(compact("categories"));
     }
 
     /**
@@ -76,11 +77,11 @@ class OrderController extends Controller
      * @param Request $request
      * @return void
      */
-    public function step2(Request $request)
+    public function step2(Request $request, $size_id)
     {
-        $size = Size::find($request->size);
-        $flavours = Flavour::get();
-        return view('order.step2')->with(compact("size", "flavours"));
+        $size = Size::find($size_id);
+        $size->flavours();
+        return view('order.step2')->with(compact("size"));
     }
 
     /**
@@ -91,12 +92,12 @@ class OrderController extends Controller
      */
     public function step3(Request $request)
     {
-        $size = Size::find($request->size);
+        $size = Size::find($request->sizes);
         $prize = $this->getPrize($size, $request->flavour);
         $flavours = Flavour::whereIn('id', $request->flavour)->get();
         $key = $this->createKey(compact("size", "flavours", "prize"));
         $request->session()->put("items.$key", compact("size", "flavours", "prize"));
-        return redirect()->route('admin.cart');
+        return redirect()->route('admin.startOrder');
     }
 
     /**
@@ -121,7 +122,7 @@ class OrderController extends Controller
     public function removeCartItem(Request $request, $id)
     {
         $request->session()->forget("items.$id");
-        return redirect()->route('admin.cart');
+        return redirect()->route('admin.startOrder');
     }
 
     /**
@@ -163,27 +164,52 @@ class OrderController extends Controller
         return view('order.person');
     }
 
-    public function order_ok(Request $request)
+    /**
+     * Create person for a order in db
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function newPerson(Request $request)
     {
-        $items = $request->session()->get('items');
-
         if ((!$request->has("id")) || (!$request->id)) {
             $address = new Address();
-            $address->address = $request->has("address") ? $request->address : '';
-            $address->neighborhood = $request->has("neighborhood") ? $request->neighborhood : '';
-            $address->city = $request->has("city") ? $request->city : '';
-            $address->shipcode = $request->has("shipcode") ? $request->shipcode : '';
-            $address->save();
-
             $person = new Person();
-            $person->name = $request->has("name") ? $request->name : '';
-            $person->address_id = $address->id;
-            $person->save();
         } else {
             $person = Person::find($request->id);
             $address = Address::find($person->address_id);
         }
+        $address->address = $request->has("address") ? $request->address : '';
+        $address->neighborhood = $request->has("neighborhood") ? $request->neighborhood : '';
+        $address->city = $request->has("city") ? $request->city : '';
+        $address->shipcode = $request->has("shipcode") ? $request->shipcode : '';
+        $address->reference = $request->has("reference") ? $request->reference : '';
+        $address->save();
 
+        $person->name = $request->has("name") ? $request->name : '';
+        $person->birthday = $request->has("birthday") ? $request->birthday : null;
+        $person->phone = $request->has("phone") ? $request->phone : '';
+        $person->comments = $request->has("comments") ? $request->comments : '';
+        $person->preferences = $request->has("preferences") ? $request->preferences : '';
+        $person->address_id = $address->id;
+        $person->save();
+
+        $request->session()->put("person", compact("person", "address"));
+        return redirect()->route('admin.startOrder');
+    }
+
+    /**
+     * Create order on database
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function order_ok(Request $request)
+    {
+        $items = $request->session()->get('items');
+        $person = $request->session()->get('person')['person'];
+        $address = $request->session()->get('address');
+        $address = $person->address;
         $order = new Order();
         $order->data = json_encode($items);
         $order->people_id = $person->id;

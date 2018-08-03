@@ -159,11 +159,11 @@ class FlavourController extends Controller
         $validate = Validator::make([
             'nome do sabor' => $name,
             'valor' => $old_value,
-            'categoria' => $category_id,
+            'tipo de produto' => $category_id,
         ], [
             'nome do sabor' => 'required|min:4',
             'valor' => 'required',
-            'categoria' => 'required',
+            'tipo de produto' => 'required',
 
         ], [
             'required' => ':attribute é obrigatório.',

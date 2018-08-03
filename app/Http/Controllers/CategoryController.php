@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 class CategoryController extends Controller
 {
     /**
@@ -21,7 +22,7 @@ class CategoryController extends Controller
      */
     public function retrieve()
     {
-        $name = request()->name ? : '';
+        $name = request()->name ?: '';
         $category_retrieve = Category::where('name', 'like', "%$name%")
             ->orderBy('name', 'asc')
             ->get();
@@ -106,12 +107,12 @@ class CategoryController extends Controller
     private function validateInput($name, $action, $id = null)
     {
         $validate = Validator::make([
-                'nome da categoria' => $name
-            ], [
-                'nome da categoria' => 'required|min:4'
-            ], [
-                'required' => ':attribute é obrigatório.',
-                'min' => ':attribute precisa ter no mínimo 4 caracteres.'
+            'nome da tipo de produto' => $name,
+        ], [
+            'nome da tipo de produto' => 'required|min:4',
+        ], [
+            'required' => ':attribute é obrigatório.',
+            'min' => ':attribute precisa ter no mínimo 4 caracteres.',
         ]);
         if ($validate->fails()) {
             $action = "CategoryController@$action";
@@ -122,5 +123,10 @@ class CategoryController extends Controller
         }
 
         return true;
+    }
+
+    public function getSizesPrices($id)
+    {
+        return response()->json(Category::with('sizes')->find($id));
     }
 }

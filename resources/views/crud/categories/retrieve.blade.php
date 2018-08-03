@@ -5,14 +5,14 @@
     <form id='form-retrieve' class='form-horizontal' action='{{ action("CategoryController@retrieve") }}' method='post'>
         <fieldset>
             <!-- Form Name -->
-            <legend>Listar categorias</legend>
+            <legend>Listar tipo de produtos</legend>
 
             <!-- Search input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Nome da categoria</label>
+                <label class="col-md-4 control-label" for="name">Nome da tipo de produto</label>
                 <div class="col-md-4">
                 <div class="input-group">
-                    <input id="name" value="{{ $name }}" name="name" type="search" placeholder="Nome da categoria" class="form-control input-md">
+                    <input id="name" value="{{ $name }}" name="name" type="search" placeholder="Nome da tipo de produto" class="form-control input-md">
                         <span class="input-group-btn">
                         <a id="search" class='btn btn-small btn-primary' href='#' title='Pesquisar'><span class="glyphicon glyphicon-search"></span></a>
                         <a id="new_category" class='btn btn-small btn-success' href='{{ action("CategoryController@add") }}' title='Formulário de inclusão'><span class="glyphicon glyphicon-plus"></span></a>
@@ -23,11 +23,11 @@
         <input type='hidden' name='_token' value='{{ csrf_token() }}'>
     </form>
     @if(count($category_retrieve) == 0)
-        <div class="alert alert-info" role="alert">Nenhuma categoria encontrado com a sua pesquisa.</div>
+        <div class="alert alert-info" role="alert">Nenhuma tipo de produto encontrado com a sua pesquisa.</div>
     @else
         <table class='table table-bordered table-hover table-striped'>
             <tr>
-                <td>Nome categoria</td>
+                <td>Nome tipo de produto</td>
                 <td>Açoes</td>
             </tr>
             @foreach ($category_retrieve as $category)
