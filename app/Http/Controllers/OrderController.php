@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Category;
 use App\Flavour;
 use App\FlavourSize;
 use App\Order;
@@ -66,8 +67,8 @@ class OrderController extends Controller
      */
     public function startOrder(Request $request)
     {
-        $sizes = Size::get();
-        return view('order.start')->with(compact("sizes"));
+        $categories = Category::all();
+        return view('order.start')->with(compact("categories"));
     }
 
     /**
@@ -76,11 +77,11 @@ class OrderController extends Controller
      * @param Request $request
      * @return void
      */
-    public function step2(Request $request)
+    public function step2(Request $request, $size_id)
     {
-        $size = Size::find($request->size);
-        $flavours = Flavour::get();
-        return view('order.step2')->with(compact("size", "flavours"));
+        $size = Size::find($size_id);
+        $size->flavours();
+        return view('order.step2')->with(compact("size"));
     }
 
     /**
@@ -91,12 +92,12 @@ class OrderController extends Controller
      */
     public function step3(Request $request)
     {
-        $size = Size::find($request->size);
+        $size = Size::find($request->sizes);
         $prize = $this->getPrize($size, $request->flavour);
         $flavours = Flavour::whereIn('id', $request->flavour)->get();
         $key = $this->createKey(compact("size", "flavours", "prize"));
         $request->session()->put("items.$key", compact("size", "flavours", "prize"));
-        return redirect()->route('admin.cart');
+        return redirect()->route('admin.startOrder');
     }
 
     /**
@@ -121,7 +122,7 @@ class OrderController extends Controller
     public function removeCartItem(Request $request, $id)
     {
         $request->session()->forget("items.$id");
-        return redirect()->route('admin.cart');
+        return redirect()->route('admin.startOrder');
     }
 
     /**

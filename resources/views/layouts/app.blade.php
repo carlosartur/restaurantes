@@ -122,9 +122,9 @@
                 </div>
             </div>
         </nav>
-
-        @yield('content')
-
+        <div class="row">
+            @yield('content')
+        </div>
     </div>
     <!-- jQuery -->
     <script src="{{ url("/js/jquery.min.js") }}"></script>
