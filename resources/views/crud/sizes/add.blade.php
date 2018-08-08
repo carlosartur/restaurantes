@@ -41,7 +41,7 @@
                         </div>
                     </div>                    
                     <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="categories">tipo de produtos deste tamanho</label>
+                        <label class="col-md-4 control-label" for="categories">Tipo de produtos deste tamanho</label>
                         <div class="col-md-4">
                             <select name="categories[]" multiple="" id="categories" class="form-control input-md">
                                 @foreach($Categories as $Category)

@@ -30,6 +30,24 @@ class OrderController extends Controller
     }
 
     /**
+     * Auto complete postcode
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function autocompletePostCode(Request $request, $postcode)
+    {
+        
+        $curl = curl_init("https://viacep.com.br/ws/{$postcode}/json/");
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+        ));
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return response()->json($result);
+    }
+
+    /**
      * Auto complete city
      *
      * @param Request $request

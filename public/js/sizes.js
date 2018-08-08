@@ -7,11 +7,11 @@ $(function () {
         buttonText: function (options, select) {
             switch (options.length) {
                 case 0:
-                    return 'Selecione uma tipo de produto';
+                    return 'Selecione um tipo de produto';
                 case 1:
                     return options.html();
                 default:
-                    return `${options.length} tipo de produtos selecionadas`;
+                    return `${options.length} tipo de produtos selecionados`;
             }
         },
         filterPlaceholder: 'Busca',
