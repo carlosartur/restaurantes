@@ -35,14 +35,14 @@ class OrderController extends Controller
      * @param Request $request
      * @return void
      */
-    public function autocompletePostCode(Request $request, $postcode)
+    public function autocompletePostcode(Request $request, $postcode)
     {
-        
+        $postcode = (int) preg_replace('/[^0-9]/', '', $postcode);
         $curl = curl_init("https://viacep.com.br/ws/{$postcode}/json/");
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
         ));
-        $result = curl_exec($curl);
+        $result = json_decode(curl_exec($curl));
         curl_close($curl);
         return response()->json($result);
     }

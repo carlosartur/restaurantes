@@ -47,6 +47,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/save_size/{id?}', 'SizeController@save')->name('admin.size.save');
 
     Route::get('/autocomplete_people/{nome?}', 'OrderController@autocompletePeople')->name('admin.autocomplete_people');
+    Route::get('/autocomplete_postcode/{nome?}', 'OrderController@autocompletePostcode')->name('admin.autocomplete_postcode');
     Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
     Route::get('/autocomplete_neighborhood/{nome?}', 'OrderController@autocompleteNeighborhood')->name('admin.autocomplete_neighborhood');
     Route::get('/order_start', 'OrderController@startOrder')->name('admin.startOrder');
