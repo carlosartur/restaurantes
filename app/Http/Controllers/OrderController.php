@@ -95,11 +95,12 @@ class OrderController extends Controller
      * @param Request $request
      * @return void
      */
-    public function step2(Request $request, $size_id)
+    public function step2(Request $request, $size_id, $category_id)
     {
         $size = Size::find($size_id);
         $size->flavours();
-        return view('order.step2')->with(compact("size"));
+        $categories = Category::with('categoriesSon.flavours')->find($category_id);
+        return view('order.step2')->with(compact("size", "categories"));
     }
 
     /**
@@ -179,7 +180,10 @@ class OrderController extends Controller
      */
     public function orderPerson(Request $request)
     {
-        return view('order.person');
+        if (is_null($request->session()->get('person')['person'])) {
+            return view('order.person');
+        }
+        return redirect()->route('admin.startOrder');
     }
 
     /**

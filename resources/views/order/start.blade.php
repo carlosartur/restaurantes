@@ -22,11 +22,16 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="categories">tipo de produto</label>
+                            <label class="col-md-4 control-label" for="categories">Tipo de produto</label>
                             <div class="col-md-4">
                                 <select id="categories" name="categories" class="form-control input">
                                     <option value="">Selecione um tipo de produto</option>
                                     @foreach ($categories as $key => $value)
+                                        @php 
+                                            if($value->category_id) {
+                                                continue;
+                                            }
+                                        @endphp
                                         <option value="{{ $value->id }}" {{ $value->id == old('size') ? 'selected' : '' }}>{{ $value->name }}</option>
                                     @endforeach
                                 </select>
