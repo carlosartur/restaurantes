@@ -28,11 +28,11 @@
                 </div>
                 <div class="listade_produtos">
                     <div class="lista_deabas">
-                        <div class="aba_sessao  abbb_1 abaativa" data-codsessao="1" data-tipo="categoria" data-cod="1">Tradicionais</div>
-                        <div class="aba_sessao abbb_1" data-codsessao="1" data-tipo="categoria" data-cod="3">Especiais</div>
-                        <div class="aba_sessao abbb_1" data-codsessao="1" data-tipo="categoria" data-cod="2">Doces</div>
+                        <div class="aba_sessao  abbb_1 abaativa" data-codsessao="1" data-tipo="tipo de produto" data-cod="1">Tradicionais</div>
+                        <div class="aba_sessao abbb_1" data-codsessao="1" data-tipo="tipo de produto" data-cod="3">Especiais</div>
+                        <div class="aba_sessao abbb_1" data-codsessao="1" data-tipo="tipo de produto" data-cod="2">Doces</div>
                     </div>
-                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;40&quot;,&quot;codtaman&quot;:&quot;1&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;98ac16c3a904ea3394880d06bcf56d1a&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x1 clk_categoria_x3" title="Mexicana - (Ingredientes: Cebola, Molho, Orégano, Azeitonas, Mussarela, Calabresa Moída, Molho de Pimenta, Tomate Picado)" style="display: none;">
+                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;40&quot;,&quot;codtaman&quot;:&quot;1&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;98ac16c3a904ea3394880d06bcf56d1a&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x1 clk_tipo de produto_x3" title="Mexicana - (Ingredientes: Cebola, Molho, Orégano, Azeitonas, Mussarela, Calabresa Moída, Molho de Pimenta, Tomate Picado)" style="display: none;">
                         <div class="image-prod">
                             <div class="formapizza-lista">
                                 <img class="back_foto_" src="https://static.expressodelivery.com.br/imagens/produtos/112/180/Expresso-Delivery_14d69ba2ec163c6e6dd76db92b4374bc.png">
@@ -49,7 +49,7 @@
                         </div>
                         <a href="#" title="Adicionar item ao pedido" data-dadositem="{&quot;coditem&quot;:&quot;40&quot;,&quot;codtaman&quot;:&quot;1&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;98ac16c3a904ea3394880d06bcf56d1a&quot;}" data-montador="montarpizza" class="clk_botao_itempersonal btn-ter-item socomprar abriritemmontador"><span class="inbtncomprar">Comprar</span></a>
                     </div>
-                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;7&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;449942533c0c09795007be56dca5fa3b&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x2 clk_categoria_x1" title="Napolitana - (Ingredientes: Cebola, Molho, Orégano, Tomate)" style="display: block;">
+                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;7&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;449942533c0c09795007be56dca5fa3b&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x2 clk_tipo de produto_x1" title="Napolitana - (Ingredientes: Cebola, Molho, Orégano, Tomate)" style="display: block;">
                         <div class="image-prod">
                             <div class="formapizza-lista">
                                 <img class="back_foto_" src="https://static.expressodelivery.com.br/imagens/produtos/112/180/Expresso-Delivery_14d69ba2ec163c6e6dd76db92b4374bc.png">
@@ -66,7 +66,7 @@
                         </div>
                         <a href="#" title="Adicionar item ao pedido" data-dadositem="{&quot;coditem&quot;:&quot;7&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;449942533c0c09795007be56dca5fa3b&quot;}" data-montador="montarpizza" class="clk_botao_itempersonal btn-ter-item socomprar abriritemmontador"><span class="inbtncomprar">Comprar</span></a>
                     </div>
-                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;56&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;9c874bdde7f86c3bfa97ef63754be244&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x2 clk_categoria_x3" title="Rúcula - (Ingredientes: Rúcula, Tomate Seco)" style="display: none;">
+                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;56&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;9c874bdde7f86c3bfa97ef63754be244&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x2 clk_tipo de produto_x3" title="Rúcula - (Ingredientes: Rúcula, Tomate Seco)" style="display: none;">
                         <div class="image-prod">
                             <div class="formapizza-lista">
                                 <img class="back_foto_" src="https://static.expressodelivery.com.br/imagens/produtos/112/180/Expresso-Delivery_14d69ba2ec163c6e6dd76db92b4374bc.png">
@@ -83,7 +83,7 @@
                         </div>
                         <a href="#" title="Adicionar item ao pedido" data-dadositem="{&quot;coditem&quot;:&quot;56&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;9c874bdde7f86c3bfa97ef63754be244&quot;}" data-montador="montarpizza" class="clk_botao_itempersonal btn-ter-item socomprar abriritemmontador"><span class="inbtncomprar">Comprar</span></a>
                     </div>
-                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;11&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;83ca2483431ec92ed18e3d68d15a3aa3&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x2 clk_categoria_x2" title="Romeu e Julieta - (Ingredientes: Mussarela, Goiabada)" style="display: none;">
+                    <div itemscope="" itemtype="http://schema.org/Product" data-dadositem="{&quot;coditem&quot;:&quot;11&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;83ca2483431ec92ed18e3d68d15a3aa3&quot;}" data-montador="montarpizza" class="box-produto prodpizza montaresteitem clk_sessao_x1 clk_tamanho_x2 clk_tipo de produto_x2" title="Romeu e Julieta - (Ingredientes: Mussarela, Goiabada)" style="display: none;">
                         <div class="image-prod">
                             <div class="formapizza-lista">
                                 <img class="back_foto_" src="https://static.expressodelivery.com.br/imagens/produtos/112/180/Expresso-Delivery_14d69ba2ec163c6e6dd76db92b4374bc.png">
@@ -100,7 +100,7 @@
                         </div>
                         <a href="#" title="Adicionar item ao pedido" data-dadositem="{&quot;coditem&quot;:&quot;11&quot;,&quot;codtaman&quot;:&quot;2&quot;,&quot;codtipo&quot;:&quot;1&quot;,&quot;hashitem&quot;:&quot;83ca2483431ec92ed18e3d68d15a3aa3&quot;}" data-montador="montarpizza" class="clk_botao_itempersonal btn-ter-item socomprar abriritemmontador"><span class="inbtncomprar">Comprar</span></a>
                     </div>
-                    <h3 class="msg_naohaitenstc" style="display:none;">Nenhum item encontrado.<br>Selecione outro tamanho ou categoria acima.</h3>
+                    <h3 class="msg_naohaitenstc" style="display:none;">Nenhum item encontrado.<br>Selecione outro tamanho ou tipo de produto acima.</h3>
                 </div>
             </div>
         </section>

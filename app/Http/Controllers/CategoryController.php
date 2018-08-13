@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 class CategoryController extends Controller
 {
     /**
@@ -21,7 +22,7 @@ class CategoryController extends Controller
      */
     public function retrieve()
     {
-        $name = request()->name ? : '';
+        $name = request()->name ?: '';
         $category_retrieve = Category::where('name', 'like', "%$name%")
             ->orderBy('name', 'asc')
             ->get();
@@ -37,13 +38,14 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $Category = Category::find($id);
+        $Category = Category::with('categoryFather')->find($id);
         if (empty($Category)) {
             return view('404');
         }
-
+        $Categories = Category::all();
+        $CategoriesIsAdditional = $Category->categoryAdditionals();
         return view('crud.categories.edit')
-            ->with('Category', $Category);
+            ->with(compact('Category', 'Categories', 'CategoriesIsAdditional'));
     }
 
     /**
@@ -53,6 +55,12 @@ class CategoryController extends Controller
     public function save($id = false)
     {
         $name = request()->name;
+        $category_father = request()->has('categories_father') ? request()->categories_father : null;
+        //additionals
+        $is_additional = request()->exists('additional');
+        $required = request()->exists('required');
+        $categories = request()->has('categories') ? request()->categories : [];
+
         if ($id) {
             $Category = Category::find($id);
             if (empty($Category)) {
@@ -70,7 +78,26 @@ class CategoryController extends Controller
         }
 
         $Category->name = $name;
+        $Category->category_id = $category_father;
+        if ($is_additional) {
+            $Category->additional = true;
+            $Category->required = $required;
+        }
         $Category->save();
+        $_this = new Category();
+        $_this->setTable('categories_additionals');
+        $_this->where('category_son_id', $Category->id)->delete();
+
+        if ($is_additional) {
+            foreach ($categories as $category_has) {
+                $_this = new Category();
+                $_this->setTable('categories_additionals');
+                $_this->category_father_id = $category_has;
+                $_this->category_son_id = $Category->id;
+                $_this->disableTimestamps();
+                $_this->save();
+            }
+        }
         return redirect()->route('admin.category.retrieve');
     }
 
@@ -93,7 +120,8 @@ class CategoryController extends Controller
      */
     public function add()
     {
-        return view('crud.categories.add');
+        $Categories = Category::all();
+        return view('crud.categories.add')->with(compact('Categories'));
     }
 
     /**
@@ -106,12 +134,12 @@ class CategoryController extends Controller
     private function validateInput($name, $action, $id = null)
     {
         $validate = Validator::make([
-                'nome da categoria' => $name
-            ], [
-                'nome da categoria' => 'required|min:4'
-            ], [
-                'required' => ':attribute é obrigatório.',
-                'min' => ':attribute precisa ter no mínimo 4 caracteres.'
+            'nome da tipo de produto' => $name,
+        ], [
+            'nome da tipo de produto' => 'required|min:4',
+        ], [
+            'required' => ':attribute é obrigatório.',
+            'min' => ':attribute precisa ter no mínimo 4 caracteres.',
         ]);
         if ($validate->fails()) {
             $action = "CategoryController@$action";
@@ -122,5 +150,10 @@ class CategoryController extends Controller
         }
 
         return true;
+    }
+
+    public function getSizesPrices($id)
+    {
+        return response()->json(Category::with('sizes')->find($id));
     }
 }

@@ -83,7 +83,7 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ route("admin.startOrder") }}">Pedido</a>
+                                        <a href="{{ route("admin.order_person") }}">Pedido</a>
                                     </li>
                                      <li>
                                         <a href="{{ route("admin.cart") }}">Carrinho</a>
@@ -98,7 +98,7 @@
                                         <a href="{{ route("admin.flavour.retrieve") }}">Sabores</a>
                                     </li>
                                     <li>
-                                        <a href="{{ route("admin.category.retrieve") }}">Categorias</a>
+                                        <a href="{{ route("admin.category.retrieve") }}">tipo de produtos</a>
                                     </li>
                                     <li>
                                         <a href="{{ route("admin.combo.retrieve") }}">Combos</a>
@@ -122,9 +122,9 @@
                 </div>
             </div>
         </nav>
-
-        @yield('content')
-
+        <div class="row">
+            @yield('content')
+        </div>
     </div>
     <!-- jQuery -->
     <script src="{{ url("/js/jquery.min.js") }}"></script>

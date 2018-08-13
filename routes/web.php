@@ -17,7 +17,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('admin.home');
 });
 
- Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+Route::get('/pre_cadastro/{recomendante?}', 'OrderController@preCadastro')->name('pre_cadastro');
+Route::post('/pre_cadastro_salvar', 'OrderController@preCadastroSalvar')->name('pre_cadastro_salvar');
+Route::get('/pre_cadastro_sucesso', 'OrderController@preCadastroSucesso')->name('order.pre_cadastro_success');
+Route::get('/autocomplete_postcode/{nome?}', 'OrderController@autocompletePostcode')->name('admin.autocomplete_postcode');
+Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
+Route::get('/autocomplete_neighborhood/{nome?}', 'OrderController@autocompleteNeighborhood')->name('admin.autocomplete_neighborhood');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
@@ -35,6 +41,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/edit_category/{id}', 'CategoryController@edit')->name('admin.category.edit');
     Route::get('/add_category', 'CategoryController@add')->name('admin.category.add');
     Route::get('/delete_category/{id}', 'CategoryController@delete')->name('admin.category.delete');
+    Route::get('/get_sizes_prices/{id?}', 'CategoryController@getSizesPrices')->name('admin.category.getSizesPrices');
     Route::post('/retrieve_category', 'CategoryController@retrieve')->name('admin.category.retrieve');
     Route::post('/save_category/{id?}', 'CategoryController@save')->name('admin.category.save');
 
@@ -46,13 +53,12 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/save_size/{id?}', 'SizeController@save')->name('admin.size.save');
 
     Route::get('/autocomplete_people/{nome?}', 'OrderController@autocompletePeople')->name('admin.autocomplete_people');
-    Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
-    Route::get('/autocomplete_neighborhood/{nome?}', 'OrderController@autocompleteNeighborhood')->name('admin.autocomplete_neighborhood');
     Route::get('/order_start', 'OrderController@startOrder')->name('admin.startOrder');
     Route::get('/cart', 'OrderController@cart')->name('admin.cart');
     Route::get('/remove_cart_item/{id}', 'OrderController@removeCartItem')->name('admin.remove_cart_item');
-    Route::post('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
-    Route::post('/order_step2', 'OrderController@step2')->name('admin.step2');
+    Route::get('/order_step2/{size_id?}/{category_id?}', 'OrderController@step2')->name('admin.step2');
+    Route::post('/new_person', 'OrderController@newPerson')->name('admin.new_person');
+    Route::get('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
     Route::post('/order_step3', 'OrderController@step3')->name('admin.step3');
     Route::post('/order_ok', 'OrderController@order_ok')->name('admin.order_ok');
 
