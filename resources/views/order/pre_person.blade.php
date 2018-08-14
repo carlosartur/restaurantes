@@ -88,10 +88,10 @@
                         </label>
                         </div>
                     </div>
-                    <div class="form-group col-lg-5">
-                        <div class="col-lg-12">
+                    <div class="form-group col-lg-4">
+                        <div class="col-lg-4">
                              <label>Cidade:
-                            <input id="city" style="width: 270px" value="{{ old('city') }}" name="city" class="form-control-cidade" type="text" placeholder="Cidade" required="">
+                            <input id="city" value="{{ old('city') }}" name="city" class="form-control" type="text" placeholder="Cidade" required="">
                         </label>
                         </div>
                     </div>
