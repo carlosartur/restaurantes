@@ -264,7 +264,6 @@ class OrderController extends Controller
         return view('order.pre_person')->with(compact('recomendante'));
     }
 
-
     public function preCadastroSalvar(Request $request)
     {
         $address = new Address();
@@ -280,7 +279,7 @@ class OrderController extends Controller
         $person->name = $request->has("name") ? $request->name : '';
         $person->birthday = $request->has("birthday") ? $request->birthday : null;
         $person->phone = $request->has("phone") ? $request->phone : '';
-        $comments[] = $request->has("recomendante") ? "Recomendado por : " . $request->recomendante : '';
+        $person->ind_name = $request->has("recomendante") ? $request->recomendante : '';
         $comments[] = $request->has("how_many_pizzas") ? "Pizzas por mês : " . $request->how_many_pizzas : '';
         $comments[] = $request->has("preferences") ? "Preferências : " . $request->preferences : '';
         $person->comments = implode("<br>", array_filter($comments));
