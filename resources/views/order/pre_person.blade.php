@@ -91,7 +91,7 @@
                     <div class="form-group col-lg-5">
                         <div class="col-lg-12">
                              <label>Cidade:
-                            <input id="city" style="width: 300px" value="{{ old('city') }}" name="city" class="form-control-cidade" type="text" placeholder="Cidade" required="">
+                            <input id="city" style="width: 270px" value="{{ old('city') }}" name="city" class="form-control-cidade" type="text" placeholder="Cidade" required="">
                         </label>
                         </div>
                     </div>
