@@ -46,7 +46,7 @@
 <body>
 
     <div id="app">
-            <img src="http://infound.test/restaurantes/public/img/deteive_da_pizza.png" alt="Smiley face" height="150" width="150">
+            <img src="http://www.cheffdapizza.com.br/restaurantes/public/img/deteive_da_pizza.png" alt="Smiley face" height="150" width="150">
         <div class="row">
             @yield('content')
         </div>
