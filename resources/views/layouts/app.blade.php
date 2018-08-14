@@ -41,10 +41,11 @@
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token()
         ]) !!};
-    </script>
+
+    </script>,
 </head>
-<body>
-    <div id="app">
+<body style="background-image: url(&quot;https://images6.alphacoders.com/412/412086.jpg&quot;);background-repeat: no-repeat;background-size: 1600px 1250px;">
+    <div id="app" >
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
