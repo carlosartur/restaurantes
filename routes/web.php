@@ -18,6 +18,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+Route::get('/pre_cadastro/{recomendante?}', 'OrderController@preCadastro')->name('pre_cadastro');
+Route::post('/pre_cadastro_salvar', 'OrderController@preCadastroSalvar')->name('pre_cadastro_salvar');
+Route::get('/pre_cadastro_sucesso', 'OrderController@preCadastroSucesso')->name('order.pre_cadastro_success');
+Route::get('/autocomplete_postcode/{nome?}', 'OrderController@autocompletePostcode')->name('admin.autocomplete_postcode');
+Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
+Route::get('/autocomplete_neighborhood/{nome?}', 'OrderController@autocompleteNeighborhood')->name('admin.autocomplete_neighborhood');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
@@ -47,9 +53,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/save_size/{id?}', 'SizeController@save')->name('admin.size.save');
 
     Route::get('/autocomplete_people/{nome?}', 'OrderController@autocompletePeople')->name('admin.autocomplete_people');
-    Route::get('/autocomplete_postcode/{nome?}', 'OrderController@autocompletePostcode')->name('admin.autocomplete_postcode');
-    Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
-    Route::get('/autocomplete_neighborhood/{nome?}', 'OrderController@autocompleteNeighborhood')->name('admin.autocomplete_neighborhood');
     Route::get('/order_start', 'OrderController@startOrder')->name('admin.startOrder');
     Route::get('/cart', 'OrderController@cart')->name('admin.cart');
     Route::get('/remove_cart_item/{id}', 'OrderController@removeCartItem')->name('admin.remove_cart_item');

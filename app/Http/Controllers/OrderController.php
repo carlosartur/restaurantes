@@ -255,4 +255,39 @@ class OrderController extends Controller
 
         return view('order.view')->with(compact('OrderItemsList', 'order', 'person', 'address'));
     }
+
+    /**
+     * Calls the pre_cadastro form
+     */
+    public function preCadastro(Request $request, $recomendante = '')
+    {
+        return view('order.pre_person')->with(compact('recomendante'));
+    }
+
+
+    public function preCadastroSalvar(Request $request)
+    {
+        $address = new Address();
+        $person = new Person();
+
+        $address->address = $request->has("address") ? $request->address : '';
+        $address->neighborhood = $request->has("neighborhood") ? $request->neighborhood : '';
+        $address->city = $request->has("city") ? $request->city : '';
+        $address->shipcode = $request->has("shipcode") ? $request->shipcode : '';
+        $address->reference = $request->has("reference") ? $request->reference : '';
+        $address->save();
+
+        $person->name = $request->has("name") ? $request->name : '';
+        $person->birthday = $request->has("birthday") ? $request->birthday : null;
+        $person->phone = $request->has("phone") ? $request->phone : '';
+        $comments[] = $request->has("recomendante") ? "Recomendado por : " . $request->recomendante : '';
+        $comments[] = $request->has("how_many_pizzas") ? "Pizzas por mês : " . $request->how_many_pizzas : '';
+        $comments[] = $request->has("preferences") ? "Preferências : " . $request->preferences : '';
+        $person->comments = implode("<br>", array_filter($comments));
+        $person->address_id = $address->id;
+        $person->save();
+
+        $request->session()->put("person", compact("person", "address"));
+        return view('order.pre_cadastro_success')->with(compact('address', 'person'));
+    }
 }
