@@ -1009,7 +1009,7 @@ body{
     line-height:1.6;
     background-image: url(https://images6.alphacoders.com/412/412086.jpg);
     background-repeat: 
-    no-repeat;background-size: 1600px 1250px;"
+    no-repeat;background-size: 1600px 1000px;"
     color:#636b6f;
     background-color:#f5f8fa
 }
@@ -2258,6 +2258,7 @@ output{
 }
 .form-control-cidade{
     width:133%;
+    width: auto;  
     height:36px;
     padding:6px 12px;
     background-color:#fff;
@@ -2282,8 +2283,7 @@ output{
 }
 
 .form-control{
-    width:370%;
-    height:36px;
+    width:300px;
     padding:6px 12px;
     background-color:#fff;
     background-image:none;

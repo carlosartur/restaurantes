@@ -12,6 +12,20 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
     <div class="panel panel-default">
+        <style>
+    input {
+        resize: horizontal;
+        width: 200px;
+    }
+    
+    input:active {
+        width: auto;   
+    }
+    
+    input:focus {
+        min-width: 200px;
+    }
+</style> 
         <!-- Default panel contents -->
         <div class="panel-heading-personalizado"><b>CHEFFE DA PIZZA | PROMOÇÃO DETETIVE DA PIZZA</b></div>
         <form class="form-horizontal" method='post' action='{{ route("pre_cadastro_salvar") }}'>
@@ -33,7 +47,7 @@
                     <div class="form-group col-sm-4">
                         <div class="col-lg-4">
                             <label>Nome:
-                            <input id="name" value="{{ old('name') }}" name="name" class="form-control" type="text" placeholder="Nome da pessoa" required="">
+                            <input id="name" value="{{ old('name') }}" name="name" class="form-control input" type="text" placeholder="Nome da pessoa" required="">
                             <input id="id" name="id" class="form-control" type="hidden">
                             </label>
                         </div>
@@ -41,14 +55,14 @@
                     <div class="form-group col-lg-4">
                         <div class="col-lg-4">
                              <label>CEP:
-                            <input id="shipcode" value="{{ old('shipcode') }}" maxlength="9" name="shipcode" class="form-control" type="text" placeholder="CEP" required="">
+                            <input id="shipcode" value="{{ old('shipcode') }}" maxlength="9" name="shipcode" class="form-control input" type="text" placeholder="CEP" required="">
                         </label>
                         </div>
                     </div>
                     <div class="form-group col-lg-4">
                         <div class="col-lg-4">
                              <label>Telefone:
-                            <input id="phone" value="{{ old('phone') ?: '' }}" data-inputmask="'alias': 'phone'" im-insert="true" name="phone" class="form-control" type="text" placeholder="Telefone" required="">
+                            <input id="phone" value="{{ old('phone') ?: '' }}" data-inputmask="'alias': 'phone'" im-insert="true" name="phone" class="form-control input" type="text" placeholder="Telefone" required="">
                         </label>
                         </div>
                     </div>
@@ -62,7 +76,7 @@
                     <div class="form-group col-lg-4">
                         <div class="col-lg-4">
                              <label>Endereço:
-                            <input id="address" value="{{ old('address') }}" name="address" class="form-control" type="text" placeholder="Endereco" required="">
+                            <input id="address"  value="{{ old('address') }}" name="address" class="form-control" type="text" placeholder="Endereco" required="">
                         </label>
                         </div>
                     </div>
@@ -77,7 +91,7 @@
                     <div class="form-group col-lg-5">
                         <div class="col-lg-12">
                              <label>Cidade:
-                            <input id="city" value="{{ old('city') }}" name="city" class="form-control-cidade" type="text" placeholder="Cidade" required="">
+                            <input id="city" style="width: 300px" value="{{ old('city') }}" name="city" class="form-control-cidade" type="text" placeholder="Cidade" required="">
                         </label>
                         </div>
                     </div>
