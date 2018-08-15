@@ -289,4 +289,13 @@ class OrderController extends Controller
         $request->session()->put("person", compact("person", "address"));
         return view('order.pre_cadastro_success')->with(compact('address', 'person'));
     }
+
+    public function relatorioPreCadastro($representante = null)
+    {
+        if (is_null($representante)) {
+            abort(404);
+        }
+        $people = Person::where('ind_name', $representante)->with('address')->get();
+        return view('order.relatorio_pre_cadastro')->with(compact('people'));
+    }
 }
