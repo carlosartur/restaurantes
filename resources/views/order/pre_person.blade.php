@@ -113,12 +113,6 @@
                         </div>
                     </div>
                     <center>
-                        <div class="form-group col-xs-12">   
-                            <div class="fb-posicao">
-                            <div class="fb-page" data-href="https://www.facebook.com/maiorpizza" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/maiorpizza" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/maiorpizza">CHEFF DA PIZZA</a></blockquote></div>
-                        <p class="help-block" style="color: red;"><b>CURTA NOSSA PÁGINA!</b></p>
-                    </center>
-                </div>
                     <button id="submit" name="submit" class="btn btn-success control-label"><span><center><b>Enviar</b></center></span></button>
                     </div>
                 </fieldset>
