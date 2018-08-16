@@ -15,19 +15,19 @@
     </script>
     <div class="panel panel-default">
         <style>
-    input {
-        resize: horizontal;
-        width: 200px;
-    }
-    
-    input:active {
-        width: auto;   
-    }
-    
-    input:focus {
-        min-width: 200px;
-    }
-</style> 
+            input {
+                resize: horizontal;
+                width: 200px;
+            }
+            
+            input:active {
+                width: auto;   
+            }
+            
+            input:focus {
+                min-width: 200px;
+            }
+        </style> 
         <!-- Default panel contents -->
         <div class="panel-heading-personalizado"><b>CHEFFE DA PIZZA | PROMOÇÃO DETETIVE DA PIZZA</b></div>
         <form class="form-horizontal" method='post' action='{{ route("pre_cadastro_salvar") }}'>
@@ -171,21 +171,27 @@
                 minLength: 8,
     			autoFocus: true,
                 source: function(request, response) {
+                    if (request.term.replace(/\D/g,'').length > 8) {
+                        return false;
+                    }
 					$.ajax({
 						url: "{{ route("admin.autocomplete_postcode") }}/" + request.term,
 						type: 'get',
 						dataType: 'json'
 					}).done(function(data){
-                        if(data.erro) {
+                        if (data.erro) {
                             swal('Cep não encontrado');
                         }
                         autocomplete_response[data.cep] = data;
-                        response([{
-                            value : data.cep,
-                            label : `${data.cep} - ${data.logradouro} - ${data.bairro}`
-                        }]);
+                        if (data.cep) {
+                            response([{
+                                value : data.cep,
+                                label : `${data.cep} - ${data.logradouro} - ${data.bairro}`
+                            }]);
+                        }
 					});
-                }, select: function(event, ui) {
+                },
+                select: function(event, ui) {
                     var data = autocomplete_response[ui.item.value];
                     $("#address").val(data.logradouro);
                     $("#neighborhood").val(data.bairro);
