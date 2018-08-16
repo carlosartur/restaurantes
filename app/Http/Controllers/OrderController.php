@@ -279,6 +279,8 @@ class OrderController extends Controller
         $person->name = $request->has("name") ? $request->name : '';
         $person->birthday = $request->has("birthday") ? $request->birthday : null;
         $person->phone = $request->has("phone") ? $request->phone : '';
+        $person->whatsapp = $request->has("whatsapp") ? $request->whatsapp : '';
+        $person->email = $request->has("email") ? $request->email : '';
         $person->ind_name = $request->has("recomendante") && $request->recomendante ? $request->recomendante : 'cheffdapizza';
         $comments[] = $request->has("how_many_pizzas") ? "Pizzas por mês : " . $request->how_many_pizzas : '';
         $comments[] = $request->has("preferences") ? "Preferências : " . $request->preferences : '';
