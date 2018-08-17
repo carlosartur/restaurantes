@@ -101,10 +101,10 @@ class OrderController extends Controller
         $size->flavours();
         $categories = Category::with('categoriesSon.flavours')->find($category_id);
         $additionals = $categories->getMyAdditionals()->map(function ($item) {
-            dump($item->flavours);
+            $item->flavours;
+            return $item;
         });
-        dump($additionals);
-        return view('order.step2')->with(compact("size", "categories"));
+        return view('order.step2')->with(compact("size", "categories", "additionals"));
     }
 
     /**
@@ -119,7 +119,14 @@ class OrderController extends Controller
         $prize = $this->getPrize($size, $request->flavour);
         $flavours = Flavour::whereIn('id', $request->flavour)->get();
         $key = $this->createKey(compact("size", "flavours", "prize"));
-        $request->session()->put("items.$key", compact("size", "flavours", "prize"));
+        $additionals = [];
+        foreach ($request->flavour_add as $key => $add) {
+            $additionals[] = [
+                'category' => Category::find($key),
+                'flavour' => Flavour::find($add),
+            ];
+        }
+        $request->session()->put("items.$key", compact("size", "flavours", "prize", "additionals"));
         return redirect()->route('admin.startOrder');
     }
 

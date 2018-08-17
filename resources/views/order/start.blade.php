@@ -70,6 +70,7 @@
                                 <th>Tamanho</th>
                                 <th>Sabores</th>
                                 <th>Valor</th>
+                                <th>Borda/Massa/Adicionais</th>
                                 <th>Ações</th>
                             </thead>
                             <tbody>
@@ -85,10 +86,13 @@
                                             {{ number_format($item['prize'], 2, ',', '.') }}
                                         </td>
                                         <td>
-                                            <div class="form-group text-right">
-                                                <div class="col-xs-12">
-                                                    <a href="{{ route('admin.remove_cart_item', $key) }}" id="submit" name="submit" class="btn btn-warning control-label">Remover</a>
-                                                </div>
+                                            @foreach ($item['additionals'] as $item2)
+                                                {{ $item2['category']->name }} | Sabor : {{ $item2['flavour']->name }}<br>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <div class="col-xs-2">
+                                                <a href="{{ route('admin.remove_cart_item', $key) }}" id="submit" name="submit" class="btn btn-warning">Remover</a>
                                             </div>
                                         </td>
                                     </tr>

@@ -107,13 +107,14 @@ class FlavourController extends Controller
         $Flavour->name = $name;
         $Flavour->old_value = $old_value;
         $Flavour->new_value = $new_value;
-        $Flavour->category_id = $category_id;
+        $Flavour->category_id = reset($category_id);
         $Flavour->save();
-        foreach (request()->value_size as $key => $value) {
-            $FlavourSize = new FlavourSize();
-            $FlavourSize->add($Flavour, Size::find($key), $value);
+        if (is_array(request()->value_size)) {
+            foreach (request()->value_size as $key => $value) {
+                $FlavourSize = new FlavourSize();
+                $FlavourSize->add($Flavour, Size::find($key), $value);
+            }
         }
-
         return redirect()->action('FlavourController@retrieve');
     }
 

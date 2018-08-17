@@ -30,5 +30,18 @@
             </div>
         </div>
     @endfor
-    {{ $categories }}
+    @foreach($additionals as $additional)
+        <div class="form-group">
+            <label class="col-md-4" for="flavour">{{ $additional->name }}</label>
+            <div class="col-md-4">
+                <select class="flavour_select" id="flavour" name="flavour_add[{{ $additional->id }}]" class="form-control input">
+                    <option value="">Selecione um sabor</option>
+                    @foreach ($additional->flavours as $key => $value)
+                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                    @endforeach
+                </select>
+                <p class="help-block">Sabor {{ $additional->name }}</p>
+            </div>
+        </div>
+    @endforeach
 </fieldset>
