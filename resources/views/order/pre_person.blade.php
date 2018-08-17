@@ -70,6 +70,20 @@
                     </div>
                     <div class="form-group col-lg-4">
                         <div class="col-lg-4">
+                             <label>Whatsapp:
+                            <input id="whatsapp" value="{{ old('phone') ?: '' }}" data-inputmask="'alias': 'phone'" im-insert="true" name="whatsapp" class="form-control input" type="text" placeholder="Whatsapp" required="">
+                        </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <div class="col-lg-4">
+                             <label>Endereço:
+                            <input id="email"  value="{{ old('email') }}" name="email" class="form-control" type="text" placeholder="Email" required="">
+                        </label>
+                    </div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <div class="col-lg-4">
                              <label>Nascimento:
                             <input id="birthday" value="{{ old('birthday') }}" name="birthday" class="form-control" type="date" placeholder="Nascimento" required="">
                         </label>
@@ -113,9 +127,10 @@
                         </div>
                     </div>
                     <center>
-                    <button id="submit" name="submit" class="btn btn-success control-label"><span><center><b>Enviar</b></center></span></button>
                     </div>
                 </fieldset>
+                <button id="submit" name="submit" class="btn btn-success control-label" style="text-align: center;margin-bottom: 0;padding-top: 8px;padding-right: 1035px;
+"><span><right><b>Enviar</b></right></span></button>
             </div>
         </form>
     </div>
@@ -131,6 +146,7 @@
         var autocomplete_response = {};
         $(function() {
             $('#phone').inputmask("99-99999-9999");
+            $('#whatsapp').inputmask("99-99999-9999");
             $('#shipcode').inputmask("99999-999");
 
             $('#city').autocomplete({

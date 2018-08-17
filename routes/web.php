@@ -18,9 +18,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+Route::get('/montar', 'MontaPizzaController@index')->name('montar.index');
 Route::get('/pre_cadastro/{recomendante?}', 'OrderController@preCadastro')->name('pre_cadastro');
 Route::get('/relatorio/pre_cadastro/{recomendante?}', 'OrderController@relatorioPreCadastro')->name('relatorio_pre_cadastro');
 Route::post('/pre_cadastro_salvar', 'OrderController@preCadastroSalvar')->name('pre_cadastro_salvar');
+Route::get('/pre_cadastro_sucesso', 'OrderController@preCadastroSucesso')->name('order.pre_cadastro_success');
 Route::get('/pre_cadastro_sucesso', 'OrderController@preCadastroSucesso')->name('order.pre_cadastro_success');
 Route::get('/autocomplete_postcode/{nome?}', 'OrderController@autocompletePostcode')->name('admin.autocomplete_postcode');
 Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
