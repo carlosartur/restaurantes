@@ -127,9 +127,10 @@
                         </div>
                     </div>
                     <center>
-                    <button id="submit" name="submit" class="btn btn-success control-label"><span><center><b>Enviar</b></center></span></button>
                     </div>
                 </fieldset>
+                <button id="submit" name="submit" class="btn btn-success control-label" style="text-align: center;margin-bottom: 0;padding-top: 8px;padding-right: 1035px;
+"><span><right><b>Enviar</b></right></span></button>
             </div>
         </form>
     </div>
