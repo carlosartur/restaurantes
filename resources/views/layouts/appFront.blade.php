@@ -90,8 +90,8 @@
     <link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=6oP9GNj5Z7B2qVd9Sr1BcrdnoV" sizes="192x192">
     <link rel="icon" type="image/png" href="/favicon-16x16.png?v=6oP9GNj5Z7B2qVd9Sr1BcrdnoV" sizes="16x16">
     <link rel="mask-icon" href="/safari-pinned-tab.svg?v=6oP9GNj5Z7B2qVd9Sr1BcrdnoV" color="#a40000">
-    <meta name="apple-mobile-web-app-title" content="Expresso Delivery">
-    <meta name="application-name" content="Expresso Delivery">
+    <meta name="apple-mobile-web-app-title" content="Cheff da Pizza">
+    <meta name="application-name" content="Cheff da Pizza">
     <meta name="msapplication-TileColor" content="#a40000">
     <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=6oP9GNj5Z7B2qVd9Sr1BcrdnoV">
     <meta name="theme-color" content="#a40000">
