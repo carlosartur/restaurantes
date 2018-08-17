@@ -42,7 +42,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="category">tipo de produto</label>
                         <div class="col-md-4">
-                            <select id="category" name="category" class="form-control input">
+                            <select id="category" name="category[]" class="form-control input">
                                 <option value="">Selecione uma tipo de produto</option>
                                 @foreach ($Categories as $key => $category)
                                     <option value="{{ $category->id }}" {{ ($category->id == old('category') || $category->id == $Flavour->category_id) ? 'selected' : '' }}>{{ $category->name }}</option>

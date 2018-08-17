@@ -13,7 +13,7 @@
     @endif
     @for ($i = 0; $i < $size->flavours; $i++)
         <div class="form-group">
-            <label class="col-md-4 control-label" for="flavour">Sabor {{ $i + 1 }}</label>
+            <label class="col-md-4" for="flavour">Sabor {{ $i + 1 }}</label>
             <div class="col-md-4">
                 {{--  {{ dd($categories->categoriesSon) }}  --}}
                 <select class="flavour_select" id="flavour" name="flavour[]" class="form-control input">
@@ -30,4 +30,5 @@
             </div>
         </div>
     @endfor
+    {{ $categories }}
 </fieldset>

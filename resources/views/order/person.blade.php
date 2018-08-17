@@ -21,86 +21,86 @@
                             </ul>
                         </div>
                     @endif
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="name">Nome</label>
                         <div class="col-md-4">
                             <input id="name" value="{{ old('name') }}" name="name" class="form-control" type="text" placeholder="Nome da pessoa" required="">
                             <input id="id" name="id" class="form-control" type="hidden">
-                            <p class="help-block">Nome da pessoa.</p>
+                            <p><small>Nome</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="shipcode">CEP</label>
                         <div class="col-md-4">
                             <input id="shipcode" value="{{ old('shipcode') }}" maxlength="9" name="shipcode" class="form-control" type="text" placeholder="CEP" required="">
-                            <p class="help-block">CEP</p>
+                            <p><small>CEP</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="phone">Telefone</label>
                         <div class="col-md-4">
-                            <input id="phone" value="{{ old('phone') ?: '55' }}" data-inputmask="'alias': 'phone'" im-insert="true" name="phone" class="form-control" type="text" placeholder="Telefone" required="">
-                            <p class="help-block">Telefone</p>
+                            <input id="phone" value="{{ old('phone') }}" name="phone" class="form-control" type="text" placeholder="Telefone" required="">
+                            <p><small>Telefone</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="birthday">Nascimento</label>
                         <div class="col-md-4">
                             <input id="birthday" value="{{ old('birthday') }}" name="birthday" class="form-control" type="date" placeholder="Nascimento" required="">
-                            <p class="help-block">Nascimento</p>
+                            <p><small>Nascimento</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="preferences">Preferências</label>
                         <div class="col-md-4">
                             <textarea name="preferences" id="preferences" class="form-control" placeholder="Preferências">
                                 {{ old('preferences') }}
                             </textarea>
-                            <p class="help-block">Preferências</p>
+                            <p><small>Preferências</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="comments">Observações</label>
                         <div class="col-md-4">
                             <textarea name="comments" id="comments" class="form-control" placeholder="Observações">
                                 {{ old('comments') }}
                             </textarea>
-                            <p class="help-block">Observações</p>
+                            <p><small>Observações</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="name">Endereco</label>
                         <div class="col-md-4">
                             <input id="address" value="{{ old('address') }}" name="address" class="form-control" type="text" placeholder="Endereco" required="">
-                            <p class="help-block">Endereco da pessoa.</p>
+                            <p><small>Endereco da pessoa.</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="name">Bairro</label>
                         <div class="col-md-4">
                             <input id="neighborhood" value="{{ old('neighborhood') }}" name="neighborhood" class="form-control" type="text" placeholder="Bairro" required="">
-                            <p class="help-block">Bairro</p>
+                            <p><small>Bairro</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="name">Cidade</label>
                         <div class="col-md-4">
                             <input id="city" value="{{ old('city') }}" name="city" class="form-control" type="text" placeholder="Cidade" required="">
-                            <p class="help-block">Cidade</p>
+                            <p><small>Cidade</small></p>
                         </div>
                     </div>
-                    <div class="form-group col-xs-12">
+                    <div class="form-group col-xs-4">
                         <label class="col-md-4 control-label" for="reference">Ponto de referencia</label>
                         <div class="col-md-4">
                             <input id="reference" value="{{ old('reference') }}" name="reference" class="form-control" type="text" placeholder="Ponto de referencia">
-                            <p class="help-block">Ponto de referencia</p>
+                            <p><small>Ponto de referencia</small></p>
                         </div>
                     </div>
                 </fieldset>
             </div>
             <div class="panel-footer">
                 <div class="form-group text-right">
-                    <div class="col-xs-12">
+                    <div class="col-xs-4">
                         <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
                     </div>
                 </div>
@@ -120,7 +120,8 @@
     <script>
         var autocomplete_response = {};
         $(function() {
-            $('#phone').inputmask("phone", {});
+            $('#phone').inputmask('(99) 99999-9999');
+            $('#shipcode').inputmask("99999-999");
 
             $('#name').autocomplete({
                 minLength: 4,
@@ -198,21 +199,27 @@
                 minLength: 8,
     			autoFocus: true,
                 source: function(request, response) {
+                    if (request.term.replace(/\D/g,'').length > 8) {
+                        return false;
+                    }
 					$.ajax({
 						url: "{{ route("admin.autocomplete_postcode") }}/" + request.term,
 						type: 'get',
 						dataType: 'json'
 					}).done(function(data){
-                        if(data.erro) {
+                        if (data.erro) {
                             swal('Cep não encontrado');
                         }
                         autocomplete_response[data.cep] = data;
-                        response([{ 
-                            value : data.cep,
-                            label : `${data.cep} - ${data.logradouro} - ${data.bairro}`
-                        }]);
+                        if (data.cep) {
+                            response([{
+                                value : data.cep,
+                                label : `${data.cep} - ${data.logradouro} - ${data.bairro}`
+                            }]);
+                        }
 					});
-                }, select: function(event, ui) {
+                },
+                select: function(event, ui) {
                     var data = autocomplete_response[ui.item.value];
                     $("#address").val(data.logradouro);
                     $("#neighborhood").val(data.bairro);

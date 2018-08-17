@@ -10,8 +10,6 @@
                 <div class="panel-body">
                     <fieldset>
                         {{ csrf_field() }}
-                        <!-- Form Name -->
-                        <!-- Appended checkbox -->
                         @if (count($errors) > 0 )
                             <div class='alert alert-danger'>
                                 <ul>
@@ -22,7 +20,7 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="categories">Tipo de produto</label>
+                            <label class="col-md-4" for="categories">Tipo de produto</label>
                             <div class="col-md-4">
                                 <select id="categories" name="categories" class="form-control input">
                                     <option value="">Selecione um tipo de produto</option>
@@ -45,7 +43,7 @@
                 <div class="panel-footer">
                     <div class="form-group text-right">
                         <div class="col-xs-12">
-                            <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
+                            <button class="btn btn-success">Ok</button>
                         </div>
                     </div>
                 </div>
@@ -125,7 +123,7 @@
                 <div class="panel-footer">
                     <div class="form-group text-right">
                         <div class="col-xs-12">
-                            <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
+                            <button class="btn btn-success">Ok</button>
                         </div>
                     </div>
                 </div>
@@ -138,4 +136,25 @@
 @push('scripts')
     <script src="{{ url("/js/order.js") }}"></script>
     <script src="{{ url("/js/script.js") }}"></script>
+    <script>
+        $(".flavour_select").multiselect({
+            buttonText: function (options, select) {
+                switch (options.length) {
+                    case 0:
+                        return 'Selecione um sabor';
+                    case 1:
+                        return options.html();
+                    default:
+                        return `${options.length} sabores`;
+                }
+            },
+            filterPlaceholder: 'Busca',
+            enableFiltering: true,
+            enableCaseInsensitiveFiltering: true,
+            includeSelectAllOption: false,
+            maxHeight: 400,
+            buttonWidth: '400px',
+            templates: templates_multiselect
+        });
+    </script>
 @endpush

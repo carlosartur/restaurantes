@@ -100,6 +100,10 @@ class OrderController extends Controller
         $size = Size::find($size_id);
         $size->flavours();
         $categories = Category::with('categoriesSon.flavours')->find($category_id);
+        $additionals = $categories->getMyAdditionals()->map(function ($item) {
+            dump($item->flavours);
+        });
+        dump($additionals);
         return view('order.step2')->with(compact("size", "categories"));
     }
 
