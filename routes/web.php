@@ -33,11 +33,10 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/edit_home_page/{saved?}', 'HomepageController@editHomePageForm')->name('admin.homepage.editHomePageForm');
     Route::post('/edit_home_page', 'HomepageController@editHomePageEdit')->name('admin.homepage.editHomePageEdit');
 
-    Route::get('/retrieve_flavour', 'FlavourController@index')->name('admin.flavour.retrieve');
+    Route::any('/retrieve_flavour', 'FlavourController@index')->name('admin.flavour.retrieve');
     Route::get('/edit_flavour/{id}', 'FlavourController@edit')->name('admin.flavour.edit');
     Route::get('/add_flavour', 'FlavourController@add')->name('admin.flavour.add');
     Route::get('/delete_flavour/{id}', 'FlavourController@delete')->name('admin.flavour.delete');
-    Route::post('/retrieve_flavour', 'FlavourController@retrieve')->name('admin.flavour.retrieve');
     Route::post('/save_flavour/{id?}', 'FlavourController@save')->name('admin.flavour.save');
 
     Route::get('/retrieve_category', 'CategoryController@retrieve')->name('admin.category.retrieve');
@@ -57,6 +56,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     Route::get('/autocomplete_people/{nome?}', 'OrderController@autocompletePeople')->name('admin.autocomplete_people');
     Route::get('/order_start', 'OrderController@startOrder')->name('admin.startOrder');
+    Route::get('/restart_order', 'OrderController@restartOrder')->name('admin.restartOrder');
     Route::get('/cart', 'OrderController@cart')->name('admin.cart');
     Route::get('/remove_cart_item/{id}', 'OrderController@removeCartItem')->name('admin.remove_cart_item');
     Route::get('/order_step2/{size_id?}/{category_id?}', 'OrderController@step2')->name('admin.step2');

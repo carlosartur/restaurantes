@@ -15,6 +15,15 @@ class FlavourController extends Controller
      * Finds every flavours or searched ones.
      * @return view Form to list the flavours
      */
+    public function retrieve(Request $request)
+    {
+        return $this->index($request);
+    }
+
+    /**
+     * Finds every flavours or searched ones.
+     * @return view Form to list the flavours
+     */
     public function index(Request $request)
     {
         $name = $request->has('name') ? $request->name : '';

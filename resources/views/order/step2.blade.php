@@ -18,13 +18,19 @@
                 {{--  {{ dd($categories->categoriesSon) }}  --}}
                 <select class="flavour_select" id="flavour" name="flavour[]" class="form-control input">
                     <option value="">Selecione um sabor</option>
-                    @foreach ($categories->categoriesSon as $cat)
-                        <optgroup label="{{ $cat->name }}">
-                            @foreach ($cat->flavours as $key => $value)
-                                <option value="{{ $value->id }}" {{ $value->id == old('flavour') ? 'selected' : '' }}>{{ $value->name }}</option>
-                            @endforeach
-                        </optgroup>
-                    @endforeach
+                    @if(count($categories->categoriesSon))
+                        @foreach ($categories->categoriesSon as $cat)
+                            <optgroup label="{{ $cat->name }}">
+                                @foreach ($cat->flavours as $key => $value)
+                                    <option value="{{ $value->id }}" {{ $value->id == old('flavour') ? 'selected' : '' }}>{{ $value->name }}</option>
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    @else
+                        @foreach ($size->flavoursRel as $key => $value)
+                            <option value="{{ $value->id }}" {{ $value->id == old('flavour') ? 'selected' : '' }}>{{ $value->name }}</option>
+                        @endforeach
+                    @endif
                 </select>
                 <p class="help-block">Sabor {{ $i + 1 }}</p>
             </div>

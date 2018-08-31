@@ -18,6 +18,9 @@ class FlavourSize extends Model
 
     public function getThis($flavour, $size)
     {
+        if (!$flavour || !$size) {
+            return new self();
+        }
         return $this
             ->where('flavour_id', $flavour->id)
             ->where('size_id', $size->id)

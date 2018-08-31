@@ -137,7 +137,11 @@
     <script src="{{ url("/js/sweetalert.min.js") }}"></script>
     <script src="{{ url("/js/app.js") }}"></script>
     <script src="{{ url("/js/multiselect/bootstrap-multiselect.js") }}"></script>
-
+    <style>
+        table {
+            background-color : #FFF !important;
+        }
+    </style>
     @stack('scripts')
 </body>
 </html>

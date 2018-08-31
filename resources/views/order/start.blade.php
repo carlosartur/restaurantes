@@ -33,7 +33,7 @@
                                         <option value="{{ $value->id }}" {{ $value->id == old('size') ? 'selected' : '' }}>{{ $value->name }}</option>
                                     @endforeach
                                 </select>
-                                <p class="help-block">tipo de produto.</p>
+                                <p class="help-block">Tipo de produto.</p>
                             </div>
                         </div>
                         <div id="sizes_div"></div>
@@ -92,7 +92,7 @@
                                         </td>
                                         <td>
                                             <div class="col-xs-2">
-                                                <a href="{{ route('admin.remove_cart_item', $key) }}" id="submit" name="submit" class="btn btn-warning">Remover</a>
+                                                <a href="{{ route('admin.remove_cart_item', $key) }}" id="submit" name="submit" class="btn btn-danger">Remover</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -127,6 +127,9 @@
                 <div class="panel-footer">
                     <div class="form-group text-right">
                         <div class="col-xs-12">
+                                <div class="col-xs-2">
+                                    <a href="{{ route('admin.restartOrder') }}" id="submit" name="submit" class="btn btn-danger">Recomeçar pedido</a>
+                                </div>
                             <button class="btn btn-success">Ok</button>
                         </div>
                     </div>

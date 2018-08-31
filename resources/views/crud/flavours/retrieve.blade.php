@@ -3,7 +3,7 @@
 @section('content')
 <div class='container'>
     <script src='/js/flavour.js'></script>
-    <form id='form-retrieve' class='form-horizontal' action='{{ action("FlavourController@retrieve") }}' method='post'>
+    <form id='form-retrieve' class='form-horizontal' action='{{ route("admin.flavour.retrieve") }}' method='post'>
         <fieldset>
 
             <!-- Form Name -->

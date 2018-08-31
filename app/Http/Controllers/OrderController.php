@@ -62,6 +62,7 @@ class OrderController extends Controller
             ->all();
         return response()->json($city);
     }
+
     /**
      * Auto complete neighborhood
      *
@@ -77,6 +78,7 @@ class OrderController extends Controller
             ->all();
         return response()->json($neighborhood);
     }
+
     /**
      * First step of order, select size
      *
@@ -118,18 +120,32 @@ class OrderController extends Controller
         $size = Size::find($request->sizes);
         $prize = $this->getPrize($size, $request->flavour);
         $flavours = Flavour::whereIn('id', $request->flavour)->get();
-        $key = $this->createKey(compact("size", "flavours", "prize"));
+        $keyCart = $this->createKey(compact("size", "flavours", "prize"));
         $additionals = [];
-        foreach ($request->flavour_add as $key => $add) {
-            $additionals[] = [
-                'category' => Category::find($key),
-                'flavour' => Flavour::find($add),
-            ];
+        if ($request->flavour_add) {
+            foreach ($request->flavour_add as $key => $add) {
+                $additionals[] = [
+                    'category' => Category::find($key),
+                    'flavour' => Flavour::find($add),
+                ];
+            }
         }
-        $request->session()->put("items.$key", compact("size", "flavours", "prize", "additionals"));
+        $request->session()->put("items.$keyCart", compact("size", "flavours", "prize", "additionals"));
         return redirect()->route('admin.startOrder');
     }
 
+    /**
+     * Third step of order, add item to cart
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function restartOrder(Request $request)
+    {
+        $request->session()->forget("items");
+        $request->session()->forget('person');
+        return redirect()->route('admin.order_person');
+    }
     /**
      * Show cart
      *
@@ -176,6 +192,7 @@ class OrderController extends Controller
     private function getPrize($size, $flavours)
     {
         $price = 0;
+        $flavours = array_filter($flavours);
         foreach ($flavours as $flavour) {
             $flavour_size = (new FlavourSize())->getThis(Flavour::find($flavour), $size);
             $price += $flavour_size->value * (1 / (count($flavours)));
