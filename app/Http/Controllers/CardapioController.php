@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Visit;
+use App\Category;
 use Illuminate\Support\Facades\DB;
 
 class CardapioController extends Controller
@@ -26,5 +27,60 @@ class CardapioController extends Controller
     public function index()
     {
         return view('cardapio/index');
+    }
+
+    /**
+     * Retorna categorias para tema, JSON
+     * 
+     * @param Request $request
+     * @return response
+     */
+    public function category(Request $request)
+    {
+        // {
+        //     "Group": "Drinks",
+        //     "Items": [{
+        //         "Name": "Coca",
+        //         "Price": 1.59,
+        //         "Group": "Drinks",
+        //         "Customizable": false,
+        //         "Ingredients": [],
+        //         "Image": "https://img-new.cgtrader.com/items/146818/large_realistic_coca_cola_can_3d_model_3ds_fbx_c4d_obj__655ab928-6598-46f6-aed8-bff3c86febbb.jpg",
+        //         "Path": "coke"
+        //     }]
+        // }
+        $category = $request->has("category") ? $request->category : false;
+        if (!$category) {
+            abort(404);
+        }
+        $category_data = Category
+            ::where('name', "like", "%$category%")
+            ->with('categoriesSon.flavours', 'categoriesSon.sizes')
+            ->first();
+        
+        $category_father_name = $category_data->name;
+        $obj = new \stdClass();
+        $obj->Group = $category_father_name;
+        $category_data->categoriesSon->map(function ($item) use ($category_father_name, &$obj) {
+            $subcategory_name = "{$category_father_name} {$item->name}";
+            foreach ($item->flavours as $fl) {
+                $flavour_name = $fl->name;
+                $flavour_val = $fl->new_value;
+                foreach ($item->sizes as $size) {
+                    $ingredients = [];
+                    $price = $flavour_val > $size->pivot->value ? $flavour_val : $size->pivot->value;
+                    $obj->Items[] = [
+                        "Name" => "{$flavour_name} {$size->name}",
+                        "Price" => $price,
+                        "Group" => $subcategory_name,
+                        "Customizable" => !empty($ingredients),
+                        "Ingredients" => $ingredients,
+                        "Image" => "",
+                        "Path" => ""
+                    ];
+                }
+            }
+        });
+        return response()->json($obj);
     }
 }
