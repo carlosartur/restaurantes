@@ -37,18 +37,6 @@ class CardapioController extends Controller
      */
     public function category(Request $request)
     {
-        // {
-        //     "Group": "Drinks",
-        //     "Items": [{
-        //         "Name": "Coca",
-        //         "Price": 1.59,
-        //         "Group": "Drinks",
-        //         "Customizable": false,
-        //         "Ingredients": [],
-        //         "Image": "https://img-new.cgtrader.com/items/146818/large_realistic_coca_cola_can_3d_model_3ds_fbx_c4d_obj__655ab928-6598-46f6-aed8-bff3c86febbb.jpg",
-        //         "Path": "coke"
-        //     }]
-        // }
         $category = $request->has("category") ? $request->category : false;
         if (!$category) {
             abort(404);
