@@ -27,6 +27,10 @@
     <link rel="stylesheet" href="{{ url("/css/jquery-ui.min.css") }}">
     <link rel="stylesheet" href="{{ url("/css/jquery-ui.theme.min.css") }}">
     <link rel="stylesheet" href="{{ url("/css/multiselect/bootstrap-multiselect.css") }}">
+    <link rel="stylesheet" href="{{ url("/css/themes/theme-blue.min.css") }}">
+    <link rel="stylesheet" href="{{ url("/css/materialize.css") }}">
+    <link rel="stylesheet" href="{{ url("/css/materialize.css") }}">
+
 
 
     <!-- CSRF Token -->
