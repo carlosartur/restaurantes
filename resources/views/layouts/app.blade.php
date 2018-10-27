@@ -152,6 +152,25 @@
                         </ul>
                     </li>
 
+                    <li class="{{ stripos(Route::currentRouteName(), "ingredient") !== false ? 'active' : '' }}">
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">timelapse</i>
+                            <span>Ingredientes</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li class="{{ Route::currentRouteName() == "admin.ingredient.retrieve" ? 'active' : '' }}">
+                                <a href="{{ route("admin.ingredient.retrieve") }}">
+                                    Buscar
+                                </a>
+                            </li>
+                            <li class="{{ Route::currentRouteName() == "admin.ingredient.add" ? 'active' : '' }}">
+                                <a href="{{ route("admin.ingredient.add") }}">
+                                    Adicionar
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="header">Pedido por telefone/pessoalmente</li>
                     <li class="{{ Route::currentRouteName() == "admin.order_person" ? 'active' : '' }}">
                         <a href="{{ route("admin.order_person") }}">
