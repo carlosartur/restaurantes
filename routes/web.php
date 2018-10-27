@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/cardapio', 'CardapioController@index')->name('cardapio.index');
+Route::any('/cardapio/category', 'CardapioController@category')->name('cardapio.category');
 Route::get('/montar', 'MontaPizzaController@index')->name('montar.index');
 Route::get('/pre_cadastro/{recomendante?}', 'OrderController@preCadastro')->name('pre_cadastro');
 Route::get('/relatorio/pre_cadastro/{recomendante?}', 'OrderController@relatorioPreCadastro')->name('relatorio_pre_cadastro');

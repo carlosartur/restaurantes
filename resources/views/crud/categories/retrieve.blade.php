@@ -1,53 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
-<div class='container'>
-    <form id='form-retrieve' class='form-horizontal' action='{{ action("CategoryController@retrieve") }}' method='post'>
-        <fieldset>
-            <!-- Form Name -->
-            <legend>Listar tipo de produtos</legend>
-
-            <!-- Search input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Nome da tipo de produto</label>
-                <div class="col-md-4">
-                <div class="input-group">
-                    <input id="name" value="{{ $name }}" name="name" type="search" placeholder="Nome da tipo de produto" class="form-control input-md">
-                        <span class="input-group-btn">
-                        <a id="search" class='btn btn-small btn-primary' href='#' title='Pesquisar'><span class="glyphicon glyphicon-search"></span></a>
-                        <a id="new_category" class='btn btn-small btn-success' href='{{ action("CategoryController@add") }}' title='Formulário de inclusão'><span class="glyphicon glyphicon-plus"></span></a>
-                        </span>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Buscar categorias
+                    </h2>
+                </div>
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-md-4">
+                            <form id='form-retrieve' class='form-horizontal' action='{{ action("CategoryController@retrieve") }}' method='post'>
+                                {{ csrf_field() }}
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input type="search" id="name" value="{{ $name }}" name="name" class="form-control date" placeholder="Nome categoria">
+                                    </div>
+                                    <span class="input-group-addon" style="cursor: pointer;" id="search">
+                                        <i class="material-icons">search</i>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                    @if(count($category_retrieve) == 0)
+                        <div class="alert alert-info" role="alert">Nenhuma tipo de produto encontrado com a sua pesquisa.</div>
+                    @else
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome tipo de produto</th>
+                                    <th>Açoes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($category_retrieve as $category)
+                                    <tr>
+                                        <td> {{ $category->name }} </td>
+                                        <td>
+                                            <span onclick="window.location.href='{{ action("CategoryController@edit", $category->id) }}';" style="cursor: pointer;" id="search">
+                                                <i class="material-icons">mode_edit</i>
+                                            </span>
+                                            delete
+                                            <a href='#' value='{{ action("CategoryController@delete", $category->id) }}' title='Excluir {{ $category->name }}'>
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                </div>
             </div>
-        </fieldset>
-        <input type='hidden' name='_token' value='{{ csrf_token() }}'>
-    </form>
-    @if(count($category_retrieve) == 0)
-        <div class="alert alert-info" role="alert">Nenhuma tipo de produto encontrado com a sua pesquisa.</div>
-    @else
-        <table class='table table-bordered table-hover table-striped'>
-            <tr>
-                <td>Nome tipo de produto</td>
-                <td>Açoes</td>
-            </tr>
-            @foreach ($category_retrieve as $category)
-                <tr>
-                    <td> {{ $category->name }} </td>
-                    <td>
-                        <a class='btn btn-small btn-primary' href='{{ action("CategoryController@edit", $category->id) }}' title='Editar {{ $category->name }}'>
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </a>
-                        <a class='btn btn-small btn-danger' href='#' value='{{ action("CategoryController@delete", $category->id) }}' title='Excluir {{ $category->name }}'>
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </a>
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-    @endif
-</div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
-    <script src="{{ url("/js/script.js") }}"></script>
+    <script>
+        
+    </script>
 @endpush
