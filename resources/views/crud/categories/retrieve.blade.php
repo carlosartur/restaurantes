@@ -40,13 +40,12 @@
                                     <tr>
                                         <td> {{ $category->name }} </td>
                                         <td>
-                                            <span onclick="window.location.href='{{ action("CategoryController@edit", $category->id) }}';" style="cursor: pointer;" id="search">
+                                            <span onclick="window.location.href='{{ action('CategoryController@edit', $category->id) }}';" style="cursor: pointer;">
                                                 <i class="material-icons">mode_edit</i>
                                             </span>
-                                            delete
-                                            <a href='#' value='{{ action("CategoryController@delete", $category->id) }}' title='Excluir {{ $category->name }}'>
-                                                <span class="glyphicon glyphicon-remove"></span>
-                                            </a>
+                                            <span class="delete" data-name="{{ $category->name }}" data-url="{{ action("CategoryController@delete", $category->id) }}" style="cursor: pointer;">
+                                                <i class="material-icons">delete</i>
+                                            </span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -60,7 +59,13 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.10/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ asset('/js/script.js') }}"></script>
     <script>
-        
+        $(() => {
+            $(".delete").click(function() {
+                confirm_delete($(this).data('name'), $(this).data('url'));
+            });
+        });
     </script>
 @endpush
