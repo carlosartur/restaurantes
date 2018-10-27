@@ -307,6 +307,7 @@
 
     <!-- Demo Js -->
     <script src="../../js/demo.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

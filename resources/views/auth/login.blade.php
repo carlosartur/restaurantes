@@ -49,8 +49,11 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Senha" required>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
                         </div>
+                        <span id="see_password_span" class="input-group-addon" style="cursor: pointer;">
+                            <i id="see_password" class="material-icons">visibility</i>
+                        </span>
                     </div>
                     <div class="row">
                         <div class="col-xs-8 p-t-5">
@@ -89,6 +92,21 @@
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>
     <script src="../../js/pages/examples/sign-in.js"></script>
+    <script>
+        var see_password = false;
+        $(() => {
+            $("#see_password_span").click(() => {
+                if (!see_password) {
+                    $("#see_password").html("visibility_off");
+                    $("#password").prop('type', 'text');
+                } else {
+                    $("#see_password").html("visibility");
+                    $("#password").prop('type', 'password');
+                }
+                see_password = !see_password;
+            });
+        });
+    </script>
 </body>
 
 </html>
