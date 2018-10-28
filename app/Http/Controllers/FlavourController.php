@@ -124,7 +124,7 @@ class FlavourController extends Controller
                 $FlavourSize->add($Flavour, Size::find($key), $value);
             }
         }
-        return redirect()->action('FlavourController@retrieve');
+        return redirect()->route('admin.flavour.retrieve');
     }
 
     /**
@@ -138,7 +138,7 @@ class FlavourController extends Controller
             return view('404');
         }
         $Flavour->delete();
-        return redirect()->action('FlavourController@retrieve');
+        return redirect()->route('admin.flavour.retrieve');
     }
 
     /**

@@ -4,9 +4,8 @@
 <div class='container'>
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        {{dd(2)}}
-        <div class="panel-heading">Adicionar sabor</div>
-        <form class="form-horizontal" method='post' action='{{ action("FlavourController@save") }}'>
+        <div class="panel-heading">Adicionar ingrediente</div>
+        <form class="form-horizontal" method='post' action='{{ action("IngredientController@save") }}'>
             <div class="panel-body">
                 <fieldset>
                     {{ csrf_field() }}
@@ -25,19 +24,7 @@
                         <label class="col-md-4 control-label" for="name">Nome</label>
                         <div class="col-md-4">
                             <input id="name" value="{{ old('name') }}" name="name" class="form-control" type="text" placeholder="Nome do sabor" required="">
-                            <p class="help-block">Nome do sabor.</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="category">Tipo de produto</label>
-                        <div class="col-md-4">
-                            <select id="category" name="category[]" multiple="" class="form-control input">
-                                <option value="">Selecione uma tipo de produto</option>
-                                @foreach ($Categories as $key => $value)
-                                    <option value="{{ $value->id }}" {{ $value->id == old('category') ? 'selected' : '' }}>{{ $value->name }}</option>
-                                @endforeach
-                            </select>
-                            <p class="help-block">Tipo de produto.</p>
+                            <p class="help-block">Nome do ingrediente.</p>
                         </div>
                     </div>
                     <span id="input_forms"><span>
@@ -57,6 +44,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ url("/js/flavour.js") }}"></script>
+    <script src="{{ url("/js/ingredient.js") }}"></script>
     <script src="{{ url("/js/script.js") }}"></script>
 @endpush

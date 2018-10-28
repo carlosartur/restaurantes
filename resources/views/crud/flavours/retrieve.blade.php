@@ -56,7 +56,7 @@
                         <a class='btn btn-small btn-primary' href='{{ route("admin.flavour.edit", $flavour->id) }}' title='Editar {{ $flavour->name }}'>
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
-                        <a class='btn btn-small btn-danger' href='#' value='{{ route("admin.flavour.delete", $flavour->id) }}' title='Excluir {{ $flavour->name }}'>
+                        <a class='btn btn-small btn-danger' href='{{ route("admin.flavour.delete", $flavour->id) }}' title='Excluir {{ $flavour->name }}'>
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </td>
