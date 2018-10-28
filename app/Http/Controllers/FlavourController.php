@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Flavour;
 use App\FlavourSize;
+use App\Helpers;
 use App\Size;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,11 +75,13 @@ class FlavourController extends Controller
         if (empty($Flavour)) {
             return view('404');
         }
-        $items = [];
-        $Flavour->flavour_size->each(function ($flavour_size) use (&$items) {
-            $items[] = $flavour_size->size_id;
-        });
-        $Sizes = Size::whereNotIn('id', $items)->get();
+
+        $Sizes = Size
+            ::join('categories_sizes', 'categories_sizes.size_id', '=', 'sizes.id')
+            ->join('categories', 'categories.id', '=', 'categories_sizes.category_id')
+            ->where('categories.id', $Flavour->category_id)
+            ->select('*', DB::raw('sizes.name as name'))
+            ->get();
         return view('crud.flavours.edit')
             ->with(compact('Flavour', 'Categories', 'Sizes'));
     }
@@ -114,14 +118,14 @@ class FlavourController extends Controller
         }
 
         $Flavour->name = $name;
-        $Flavour->old_value = $old_value;
-        $Flavour->new_value = $new_value;
-        $Flavour->category_id = reset($category_id);
+        $Flavour->old_value = Helpers::dinheiroParaFloat($old_value);
+        $Flavour->new_value = Helpers::dinheiroParaFloat($new_value);
+        $Flavour->category_id = $category_id;
         $Flavour->save();
         if (is_array(request()->value_size)) {
             foreach (request()->value_size as $key => $value) {
                 $FlavourSize = new FlavourSize();
-                $FlavourSize->add($Flavour, Size::find($key), $value);
+                $FlavourSize->add($Flavour, Size::find($key), Helpers::dinheiroParaFloat($value));
             }
         }
         return redirect()->route('admin.flavour.retrieve');

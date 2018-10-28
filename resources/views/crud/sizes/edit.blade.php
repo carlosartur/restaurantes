@@ -1,85 +1,116 @@
 @extends('layouts.app')
+
 @php
     $categories_selected = $Size->categories->pluck('id')->all();
 @endphp
+
 @section('content')
-<div class='container'>
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Editar tamanho</div>
-        <form class="form-horizontal" method='post' action='{{ action("SizeController@save", $Size->id) }}'>
-            <fieldset>
-                <div class="panel-body" id="form_size">
-                    {{ csrf_field() }}
-                    <!-- Appended checkbox -->
-                    @if(count($errors) > 0)
-                        <div class='alert alert-danger'>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Nome</label>
-                        <div class="col-md-4">
-                            <input value="{{ $Size->name }}" type="text" name="name" id="name" required="" class="form-control">
-                            <p class="help-block">Nome do tamanho.</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Fatias</label>
-                        <div class="col-md-4">
-                            <input value="{{ $Size->slices }}" type="number" name="slices" id="slices" required="" class="form-control input-md">
-                            <p class="help-block">Fatias.</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="name">Sabores</label>
-                        <div class="col-md-4">
-                            <input value="{{ $Size->flavours }}" type="number" name="flavours" id="flavours" required="" class="form-control input-md" >
-                            <p class="help-block">Sabores.</p>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-12">
-                        <label class="col-md-4 control-label" for="categories">tipo de produtos deste tamanho</label>
-                        <div class="col-md-4">
-                            <select name="categories[]" multiple="" id="categories" class="form-control input-md">
-                                @foreach($Categories as $Category)
-                                    <option {{ in_array($Category->id, $categories_selected) ? 'selected' : '' }} value="{{ $Category->id }}">
-                                        {{ $Category->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <p class="help-block">tipo de produtos.</p>
-                        </div>
-                    </div>
-                    @foreach ($Size->categories as $category)
-                        <div class="form-group col-xs-12" id="div_{{ $category->id }}">
-                            <label class="col-md-4 control-label" for="flavours">Valor para tipo de produto {{ $category->name }}</label>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Editar tamanho
+                    </h2>
+                </div>
+                <form id='form-retrieve' class='form-horizontal' action='{{ action("SizeController@save", $Size->id) }}' method='post'>
+                    <div class="body">
+                        <div class="row clearfix">
                             <div class="col-md-4">
-                                <input type="number" min="0" value="{{ $category->pivot->value }}" step=".01" name="values[{{ $category->id }}]" id="values_{{ $category->id }}" required="" class="form-control input-md">
-                                <p class="help-block">Valor para tipo de produto {{ $category->name }}</p>
+                                {{ csrf_field() }}
+                                @if (count($errors) > 0 )
+                                    <div class='alert alert-danger'>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <p>
+                                    <b>Nome</b>
+                                </p>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input  type="text" value="{{ $Size->name }}" id="name" name="name" class="form-control date" placeholder="Nome tamanho" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <p>
+                                    <b>Fatias/Porções</b>
+                                </p>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input value="{{ $Size->slices }}" type="number" min="1" step="1" name="slices" id="slices" class="form-control date" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>
+                                    <b>Sabores</b>&nbsp;<small>Sabores diferentes que o tamanho permite.</small>
+                                </p>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input value="{{ $Size->flavours }}" type="number" min="1" step="1" name="flavours" id="flavours" class="form-control date" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <p>
+                                    <b>Categoria</b>
+                                </p>
+                                <select name="category[]" id="category" class="form-control show-tick" multiple required>
+                                    <option value="">Selecione uma opção</option>
+                                    @foreach($Categories as $Category)
+                                        <option value="{{ $Category->id }}" {{ in_array($Category->id, $categories_selected) ? 'selected' : '' }}>
+                                            {{ $Category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            @foreach($Categories as $Category)
+                                <div class="col-md-4 category_values" id="values_{{ $Category->id }}" {!! in_array($Category->id, $categories_selected) ? '' : 'style="display: none"' !!}>
+                                    <p>
+                                        <b>Valor para categoria {{ $Category->name }}</b>
+                                    </p>
+                                    <div class="input-group">
+                                        <div class="form-line">
+                                            <input {!! in_array($Category->id, $categories_selected) 
+                                                ? 'value="' . (\App\Helpers::floatParaDinheiro($Size->categories->where('id', $Category->id)->first()->pivot->value)) . '"' 
+                                                : "" !!} id="values_input_{{ $Category->id }}" type="text" name="values[{{ $Category->id }}]" class="form-control date coin" placeholder="Valor para categoria {{ $Category->name }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <div class="col-md-3">
+                                <button class="btn btn-success control-label">Ok</button>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-                <div class="panel-footer">
-                    <div class="form-group text-right">
-                        <div class="col-xs-12">
-                            <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
-                        </div>
                     </div>
-                </div>
-            </fieldset>
-        </form>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-
 @endsection
 
 @push('scripts')
     <script src="{{ url("/js/script.js") }}"></script>
-    <script src="{{ url("/js/sizes.js") }}"></script>
+    {{-- <script src="{{ url("/js/sizes.js") }}"></script> --}}
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+
+    <script src="{{ assert('/js/sizes.js') }}"></script>
 @endpush

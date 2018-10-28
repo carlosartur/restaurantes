@@ -1,61 +1,107 @@
 @extends('layouts.app')
 
 @section('content')
-<div class='container'>
-    <div class="panel panel-default">
-        <!-- Default panel contents -->
-        <div class="panel-heading">Adicionar sabor</div>
-        <form class="form-horizontal" method='post' action='{{ action("FlavourController@save") }}'>
-            <div class="panel-body">
-                <fieldset>
-                    {{ csrf_field() }}
-                    <!-- Form Name -->
-                    <!-- Appended checkbox -->
-                    @if (count($errors) > 0 )
-                        <div class='alert alert-danger'>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="name">Nome</label>
-                        <div class="col-md-4">
-                            <input id="name" value="{{ old('name') }}" name="name" class="form-control" type="text" placeholder="Nome do sabor" required="">
-                            <p class="help-block">Nome do sabor.</p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="category">Tipo de produto</label>
-                        <div class="col-md-4">
-                            <select id="category" name="category[]" multiple="" class="form-control input">
-                                <option value="">Selecione uma tipo de produto</option>
-                                @foreach ($Categories as $key => $value)
-                                    <option value="{{ $value->id }}" {{ $value->id == old('category') ? 'selected' : '' }}>{{ $value->name }}</option>
-                                @endforeach
-                            </select>
-                            <p class="help-block">Tipo de produto.</p>
-                        </div>
-                    </div>
-                    <span id="input_forms"><span>
-                </fieldset>
-            </div>
-            <div class="panel-footer">
-                <div class="form-group text-right">
-                    <div class="col-xs-12">
-                        <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
-                    </div>
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Adicionar sabor
+                    </h2>
                 </div>
+                <form id='form-retrieve' class='form-horizontal' action='{{ action("FlavourController@save") }}' method='post'>
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-md-4">
+                                {{ csrf_field() }}
+                                @if (count($errors) > 0 )
+                                    <div class='alert alert-danger'>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <p>
+                                    <b>Nome</b>
+                                </p>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input  type="text" id="name" name="name" class="form-control date" placeholder="Nome sabor" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <p>
+                                    <b>Categoria</b>
+                                </p>
+                                <select name="category" id="category" class="form-control show-tick">
+                                    <option value="">Selecione uma opção</option>
+                                    @foreach($Categories as $Category)
+                                        <option value="{{ $Category->id }}">
+                                            {{ $Category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>
+                                    <b>Valor</b>
+                                </p>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input value="{{ old('new_value') }}" type="text" id="new_value" name="new_value" class="form-control date coin" placeholder="Valor" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>
+                                    <b>Valor antigo(mostrar em promoções)</b>
+                                </p>
+                                <div class="input-group">
+                                    <div class="form-line">
+                                        <input value="{{ old('old_value') }}" type="text" id="old_value" name="old_value" class="form-control date coin" placeholder="Valor antigo" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <button class="btn btn-success control-label">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <input id="route" type="hidden" value="{{ route('admin.category.getSizesPrices') }}">
-        </form>
+        </div>
     </div>
-</div>
 @endsection
 
 @push('scripts')
-    <script src="{{ url("/js/flavour.js") }}"></script>
     <script src="{{ url("/js/script.js") }}"></script>
+    {{-- <script src="{{ url("/js/sizes.js") }}"></script> --}}
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+    
+    <script>
+        $(() => {
+            $("#additional").click(function() {
+                if($("#additional").is(':checked')) {
+                    $("#categories_div").show();
+                } else {
+                    $("#categories_div").hide();
+                }
+            });
+        });
+    </script>
 @endpush

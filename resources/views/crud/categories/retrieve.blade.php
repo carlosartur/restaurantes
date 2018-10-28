@@ -66,6 +66,9 @@
             $(".delete").click(function() {
                 confirm_delete($(this).data('name'), $(this).data('url'));
             });
+            $("#search").click(() => {
+                $("#form-retrieve").submit();
+            });
         });
     </script>
 @endpush
