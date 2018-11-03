@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="row clearfix">
-    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
                     <h2>
-                        Carrinho
+                        Pedidos
                     </h2>
                 </div>
                 <div class="body">
                     <div class="row clearfix">
                         @if($orders->count())
-                            <table class="table">
+                            <table class="table" id="order_table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -52,6 +52,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $orders->onEachSide(5)->links() }}
                         @else
                             <div class='alert alert-info'>
                                 Nenhum pedido encontrado.
@@ -67,14 +68,33 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.10/dist/sweetalert2.all.min.js"></script>
+<script src="{{ asset("/js/script.js") }}"></script>
 <script>
     $(() => {
         $('.visibility').click(function() {
             var id = $(this).data("id");
             var order_data = data[id];
-
+            var table = new HtmlElement('table');
+            var lines = [];
+            for (var i in order_data) {
+                lines.push((new HtmlElement('tr')).appendChildren([
+                    (new HtmlElement('td')).html(order_data[i].hasOwnProperty('category') && order_data[i].category.hasOwnProperty('name') ? order_data[i].category.name : '-'),
+                    (new HtmlElement('td')).html(order_data[i].hasOwnProperty('size') && order_data[i].size.hasOwnProperty('name') ? order_data[i].size.name : '-'),
+                    (new HtmlElement('td')).html(order_data[i].flavours.map((item) => { return item.hasOwnProperty('name') ? item.name : '-'; }).join(' - ')),
+                    (new HtmlElement('td')).html(formataDinheiro(order_data[i].prize))
+                ]));
+            }
+            table.appendChildren([
+                (new HtmlElement('thead')).appendChildren([
+                    (new HtmlElement('th')).html('Categoria'),
+                    (new HtmlElement('th')).html('Tamanho'),
+                    (new HtmlElement('th')).html('Sabor'),
+                    (new HtmlElement('th')).html('Valor')
+                ]),
+                (new HtmlElement('tbody')).appendChildren(lines)
+            ]).setClasses(['table']);
             swal({
-            //    html: 
+               html: String(table)
             });
         });
     });

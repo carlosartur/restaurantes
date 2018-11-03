@@ -330,10 +330,11 @@ class OrderController extends Controller
      */
     public function ordersList(Request $request)
     {
-        $orders = Order::with('person')->orderBy('created_at', 'desc')->get()->map(function ($item) {
+        $orders = Order::with('person')->orderBy('created_at', 'desc')->paginate();
+        $orders->setCollection($orders->getCollection()->transform(function ($item) {
             $item->data = json_decode($item->data);
             return $item;
-        });
+        }));
         return view('order.list')->with(compact('orders'));
     }
 

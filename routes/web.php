@@ -82,18 +82,18 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::post('/save_combo/{id?}', 'CombosController@store')->name('admin.combo.save');
 });
 
-Route::get('images/{filename}', function ($filename) {
-    $ds = DIRECTORY_SEPARATOR;
-    $path = storage_path() . "{$ds}app{$ds}public{$ds}images{$ds}" . $filename;
+// Route::get('images/{filename}', function ($filename) {
+//     $ds = DIRECTORY_SEPARATOR;
+//     $path = storage_path() . "{$ds}app{$ds}public{$ds}images{$ds}" . $filename;
 
-    if (!File::exists($path)) {
-        abort(404);
-    }
+//     if (!File::exists($path)) {
+//         abort(404);
+//     }
 
-    $file = File::get($path);
-    $type = File::mimeType($path);
+//     $file = File::get($path);
+//     $type = File::mimeType($path);
 
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-});
+//     $response = Response::make($file, 200);
+//     $response->header("Content-Type", $type);
+//     return $response;
+// });

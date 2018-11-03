@@ -190,7 +190,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="{{ Route::currentRouteName() == "admin.cart" ? 'active' : '' }}">
+                    <li class="{{ Route::currentRouteName() == "admin.orders" ? 'active' : '' }}">
                         <a href="{{ route("admin.orders") }}">
                             <i class="material-icons">view_list</i>
                             <span>   
