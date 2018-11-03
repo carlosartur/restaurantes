@@ -121,6 +121,7 @@ class OrderController extends Controller
         $size = Size::find($request->sizes);
         $prize = $this->getPrize($size, $request->flavour, $request->categories);
         $flavours = Flavour::whereIn('id', $request->flavour)->get();
+        $category = Category::find($request->categories);
         $keyCart = $this->createKey(compact("size", "flavours", "prize"));
         $additionals = [];
         if ($request->flavour_add) {
@@ -131,7 +132,7 @@ class OrderController extends Controller
                 ];
             }
         }
-        $request->session()->put("items.$keyCart", compact("size", "flavours", "prize", "additionals"));
+        $request->session()->put("items.$keyCart", compact("size", "flavours", "prize", "additionals", "category"));
         return redirect()->route('admin.startOrder');
     }
 
@@ -147,7 +148,7 @@ class OrderController extends Controller
         $request->session()->forget('person');
         return redirect()->route('admin.order_person');
     }
-    /**
+    /**▼
      * Show cart
      *
      * @param Request $request
@@ -322,6 +323,18 @@ class OrderController extends Controller
 
         $request->session()->put("person", compact("person", "address"));
         return view('order.pre_cadastro_success')->with(compact('address', 'person'));
+    }
+
+    /**
+     * List orders 
+     */
+    public function ordersList(Request $request)
+    {
+        $orders = Order::with('person')->orderBy('created_at', 'desc')->get()->map(function ($item) {
+            $item->data = json_decode($item->data);
+            return $item;
+        });
+        return view('order.list')->with(compact('orders'));
     }
 
     public function relatorioPreCadastro($representante = null)

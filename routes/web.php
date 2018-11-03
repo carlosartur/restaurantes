@@ -71,6 +71,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
     Route::post('/order_step3', 'OrderController@step3')->name('admin.step3');
     Route::post('/order_ok', 'OrderController@order_ok')->name('admin.order_ok');
+    Route::get('/orders_list', 'OrderController@ordersList')->name('admin.orders');
+
 
     Route::get('/retrieve_combo', 'CombosController@index')->name('admin.combo.retrieve');
     Route::get('/edit_combo/{id}', 'CombosController@edit')->name('admin.combo.edit');

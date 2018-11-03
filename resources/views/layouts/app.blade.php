@@ -190,16 +190,24 @@
                             </span>
                         </a>
                     </li>
+                    <li class="{{ Route::currentRouteName() == "admin.cart" ? 'active' : '' }}">
+                        <a href="{{ route("admin.orders") }}">
+                            <i class="material-icons">view_list</i>
+                            <span>   
+                                Pedidos
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- #Menu -->
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2016 - 2017 <a href="javascript:void(0);">AdminBSB - Material Design</a>.
+                    &copy; 2018 <a href="javascript:void(0);"></a>Coderslab.
                 </div>
                 <div class="version">
-                    <b>Version: </b> 1.0.5
+                    <b>Versão: </b> 1.0
                 </div>
             </div>
             <!-- #Footer -->
