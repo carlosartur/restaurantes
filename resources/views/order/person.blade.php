@@ -55,7 +55,7 @@
                             </p>
                             <div class="input-group">
                                 <div class="form-line">
-                                    <input id="shipcode" value="{{ old('shipcode') }}" maxlength="9" name="shipcode" class="form-control" type="text" placeholder="CEP" required>
+                                    <input autocomplete="off" id="shipcode" value="{{ old('shipcode') }}" maxlength="9" name="shipcode" class="form-control" type="text" placeholder="CEP" required>
                                 </div>
                             </div>
                         </div>
