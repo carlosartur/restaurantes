@@ -35,7 +35,7 @@
                 <div class="panel-footer">
                     <div class="form-group text-right">
                         <div class="col-xs-12">
-                            <button class="btn btn-success">Ok</button>
+                            <button class="btn btn-success waves-effect">Ok</button>
                         </div>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                 <div class="panel-footer">
                     <div class="form-group text-right">
                         <div class="col-xs-12">
-                            <button class="btn btn-success">Ok</button>
+                            <button class="btn btn-success waves-effect">Ok</button>
                         </div>
                     </div>
                 </div>

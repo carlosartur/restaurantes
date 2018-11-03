@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Address;
 use App\Category;
+use App\CategoriesSize;
 use App\Flavour;
 use App\FlavourSize;
 use App\Order;
@@ -87,7 +88,7 @@ class OrderController extends Controller
      */
     public function startOrder(Request $request)
     {
-        $categories = Category::all();
+        $categories = Category::whereNull('category_id')->with('categoriesSon')->get();
         return view('order.start')->with(compact("categories"));
     }
 
@@ -101,7 +102,7 @@ class OrderController extends Controller
     {
         $size = Size::find($size_id);
         $size->flavours();
-        $categories = Category::with('categoriesSon.flavours')->find($category_id);
+        $categories = Category::with('categoryFather.categoriesSon.flavours')->find($category_id);
         $additionals = $categories->getMyAdditionals()->map(function ($item) {
             $item->flavours;
             return $item;
@@ -118,7 +119,7 @@ class OrderController extends Controller
     public function step3(Request $request)
     {
         $size = Size::find($request->sizes);
-        $prize = $this->getPrize($size, $request->flavour);
+        $prize = $this->getPrize($size, $request->flavour, $request->categories);
         $flavours = Flavour::whereIn('id', $request->flavour)->get();
         $keyCart = $this->createKey(compact("size", "flavours", "prize"));
         $additionals = [];
@@ -189,12 +190,15 @@ class OrderController extends Controller
      * @param [type] $flavours
      * @return void
      */
-    private function getPrize($size, $flavours)
+    private function getPrize($size, $flavours, $categories)
     {
         $price = 0;
         $flavours = array_filter($flavours);
         foreach ($flavours as $flavour) {
             $flavour_size = (new FlavourSize())->getThis(Flavour::find($flavour), $size);
+            if (!$flavour_size) {
+                $flavour_size = (new CategoriesSize())->getThis(Category::find($categories), $size);
+            }
             $price += $flavour_size->value * (1 / (count($flavours)));
         }
         return $price;

@@ -161,7 +161,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-success control-label">Ok</button>
+                            <button type="submit" class="btn btn-success waves-effect control-label">Ok</button>
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,7 @@
         .autocomplete {
             /*the container must be positioned relative:*/
             position: relative;
-            display: inline-block;
+            /* display: inline-block; */
         }
 
         .autocomplete-items {
@@ -220,47 +220,69 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.10/dist/sweetalert2.all.min.js"></script>    
     <script>
         var autocomplete_response = {};
+        var input_length = 0;
+
+        class PersonAutocomplete {
+            constructor (value) {
+                this.value = value;
+                this.length = value.length;
+            }
+
+            timeout () {
+                setTimeout(() => {
+                    if (this.length < 4) {
+                        $("#lista_nomes").html('');
+                        return null;
+                    }
+                    /** Confere se o número de caracteres continuou o mesmo. */
+                    if (input_length != this.length) {
+                        return false;
+                    }
+                    $("#loader-name").fadeIn();
+                    $.ajax({
+                        url: "{{ route("admin.autocomplete_people") }}/" + this.value,
+                        type: 'get',
+                        dataType: 'json'
+                    }).done(function (data) {
+                        $("#lista_nomes").html('');
+                        $("#loader-name").fadeOut();
+
+                        for (var i in data) {
+                            autocomplete_response[data[i].id] = data[i];
+                            $("#lista_nomes").append($(`<div class="autocomplete" id="${data[i].id}">${data[i].name} - <small>${data[i].phone}</small></div>`));
+                        }
+
+                        $(".autocomplete").click(function () {
+                            var data = autocomplete_response[$(this).prop('id')];
+                            var address_inputs = data.address;
+                            $("#name").val(data.name);
+                            $("#id").val(data.id);
+                            $("#birthday").val(data.birthday);
+                            $("#phone").val(data.phone);
+                            $("#comments").text(data.comments ? data.comments : '');
+                            $("#preferences").text(data.preferences ? data.preferences : '');
+                            $("#address").val(address_inputs.address);
+                            $("#neighborhood").val(address_inputs.neighborhood);
+                            $("#city").val(address_inputs.city);
+                            $("#shipcode").val(address_inputs.shipcode);
+                            $("#reference").val(address_inputs.reference);
+                            $("#lista_nomes").html('');
+                        });
+                    });
+                }, 1000);
+            }
+        }
+
         $(function() {
             $('#phone').inputmask('(99) 99999-9999');
             $('#shipcode').inputmask("99999-999");
             $(".preloader").hide();
+
             $('#name').keyup(() => {
-                var value = $('#name').val();
-                if (value.length < 4) {
-                    $("#lista_nomes").html('');
-                    return null;
-                }
-                $("#loader-name").fadeIn();
-                $.ajax({
-                    url: "{{ route("admin.autocomplete_people") }}/" + value,
-                    type: 'get',
-                    dataType: 'json'
-                }).done(function (data) {
-                    $("#lista_nomes").html('');
-                    $("#loader-name").fadeOut();
-
-                    for (var i in data) {
-                        autocomplete_response[data[i].id] = data[i];
-                        $("#lista_nomes").append($(`<div class="autocomplete" id="${data[i].id}">${data[i].name} - <small>${data[i].phone}</small></div>`));
-                    }
-
-                    $(".autocomplete").click(function () {
-                        var data = autocomplete_response[$(this).prop('id')];
-                        var address_inputs = data.address;
-                        $("#name").val(data.name);
-                        $("#id").val(data.id);
-                        $("#birthday").val(data.birthday);
-                        $("#phone").val(data.phone);
-                        $("#comments").text(data.comments ? data.comments : '');
-                        $("#preferences").text(data.preferences ? data.preferences : '');
-                        $("#address").val(address_inputs.address);
-                        $("#neighborhood").val(address_inputs.neighborhood);
-                        $("#city").val(address_inputs.city);
-                        $("#shipcode").val(address_inputs.shipcode);
-                        $("#reference").val(address_inputs.reference);
-                        $("#lista_nomes").html('');
-                    });
-                });
+                /** pega o numero de caracteres no input*/
+                input_length = $('#name').val().length;
+                let person = new PersonAutocomplete($('#name').val());
+                person.timeout();
             });
 
             $('#shipcode').keyup(() => {
@@ -274,7 +296,6 @@
                     type: 'get',
                     dataType: 'json'
                 }).done(function(data){
-                    console.log(data);
                     $("#loader-cep").fadeOut();
                     if (data.erro) {
                         swal('Cep não encontrado');

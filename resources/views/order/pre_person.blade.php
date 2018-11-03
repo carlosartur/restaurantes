@@ -129,7 +129,7 @@
                     <center>
                     </div>
                 </fieldset>
-                <button id="submit" name="submit" class="btn btn-success control-label" style="text-align: center;margin-bottom: 0;padding-top: 8px;padding-right: 1035px;
+                <button id="submit" name="submit" class="btn btn-success waves-effect control-label" style="text-align: center;margin-bottom: 0;padding-top: 8px;padding-right: 1035px;
 "><span><right><b>Enviar</b></right></span></button>
             </div>
         </form>

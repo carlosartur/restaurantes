@@ -30,7 +30,7 @@
             <div class="panel-footer">
                 <div class="form-group text-right">
                     <div class="col-xs-12">
-                        <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
+                        <button id="submit" name="submit" class="btn btn-success waves-effect control-label">Ok</button>
                     </div>
                 </div>
             </div>

@@ -45,7 +45,6 @@ class CardapioController extends Controller
             ::where('name', "like", "%$category%")
             ->with('categoriesSon.flavours', 'categoriesSon.sizes')
             ->first();
-        
         $category_father_name = $category_data->name;
         $obj = new \stdClass();
         $obj->Group = $category_father_name;

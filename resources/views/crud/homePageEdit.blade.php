@@ -129,7 +129,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="submit">Confirmar</label>
                 <div class="col-md-4">
-                    <button id="submit" name="submit" class="btn btn-success form-control">Ok</button>
+                    <button id="submit" name="submit" class="btn btn-success waves-effect form-control">Ok</button>
                 </div>
             </div>
         </fieldset>

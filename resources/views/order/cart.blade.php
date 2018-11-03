@@ -83,7 +83,7 @@
                     <div class="form-group text-right">
                         <div class="col-xs-12">
                             <a class="btn btn-warning control-label" href="{{ route("admin.startOrder") }}">Adicionar mais um produto</a>
-                            <button id="submit" name="submit" class="btn btn-success control-label">Ok</button>
+                            <button id="submit" name="submit" class="btn btn-success waves-effect control-label">Ok</button>
                         </div>
                     </div>
                 </div>

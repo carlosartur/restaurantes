@@ -70,7 +70,7 @@
                             </div>
 
                             <div class="col-md-3">
-                                <button class="btn btn-success control-label">Ok</button>
+                                <button class="btn btn-success waves-effect control-label">Ok</button>
                             </div>
                         </div>
                     </div>
