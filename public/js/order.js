@@ -50,6 +50,30 @@ var getFlavours = function ($this) {
 	});
 };
 
+var getIngredients = function ($this) {
+	var route = $("#get_ingredients").val();
+	var flavour_id = $($this).val();
+	if (!flavour_id) {
+		return;
+	}
+	$.ajax({
+		url: `${route}/${flavour_id}`
+	}).done(function (response) {
+		for (var i in response.ingredients) {
+			$('#public-methods').multiSelect('addOption', { 
+				value: i, 
+				text: response.ingredients[i], 
+				index: 0, 
+				nested: response.flavour
+			});
+		}
+		console.log(response);
+	}).fail(function () {
+		swal("Houve um erro ao obter os sabores.");
+	});
+};
+
 $(document).ready(function () {
+	$('#ingredients').multiSelect();
 	$("#categories").change(getSizes);
 });

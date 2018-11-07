@@ -44,6 +44,12 @@
                             <div id="sizes_div"></div>
                         </div>
                         <div id="flavours_div"></div>
+                        <div class="col-md-8">
+                            <p>
+                                <b>Excluir ingredientes</b>
+                            </p>
+                            <select id="ingredients" name="ingredients[]" class="ms" multiple="multiple"></select>
+                        </div>
                         <div class="col-md-3">
                             <button type="submit" class="btn btn-success waves-effect control-label">Ok</button>
                         </div>
@@ -143,6 +149,7 @@
                 </div>
                 <input id="route_category" type="hidden" value="{{ route('admin.category.getSizesPrices') }}">
                 <input id="route_flavours" type="hidden" value="{{ route('admin.step2') }}">
+                <input id="get_ingredients" type="hidden" value="{{ route('admin.flavour.get_ingredients') }}">
             </form>
         </div>
     </div>
@@ -158,29 +165,19 @@
     <script src="{{ url("/js/script.js") }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.10/dist/sweetalert2.all.min.js"></script>
     <script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
 
     <script>
         @if(!session()->get('person'))
             location.href = "{{ route('admin.order_person') }}";
         @endif
-        // $(".flavour_select").multiselect({
-        //     buttonText: function (options, select) {
-        //         switch (options.length) {
-        //             case 0:
-        //                 return 'Selecione um sabor';
-        //             case 1:
-        //                 return options.html();
-        //             default:
-        //                 return `${options.length} sabores`;
-        //         }
-        //     },
-        //     filterPlaceholder: 'Busca',
-        //     enableFiltering: true,
-        //     enableCaseInsensitiveFiltering: true,
-        //     includeSelectAllOption: false,
-        //     maxHeight: 400,
-        //     buttonWidth: '400px',
-        //     templates: templates_multiselect
-        // });
+
     </script>
 @endpush

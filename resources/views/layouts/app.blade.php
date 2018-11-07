@@ -15,15 +15,17 @@
     <!-- Bootstrap Core Css -->
     <link href="../../plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
+    
     <!-- Waves Effect Css -->
     <link href="../../plugins/node-waves/waves.css" rel="stylesheet" />
-
+    
     <!-- Animation Css -->
     <link href="../../plugins/animate-css/animate.css" rel="stylesheet" />
-
+    
     <!-- Custom Css -->
     <link href="../../css/style.css" rel="stylesheet">
-
+    
+    <link href="../../plugins/multi-select/css/multi-select.css" rel="stylesheet">
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="../../css/themes/all-themes.css" rel="stylesheet" />
     @stack('style')
@@ -330,6 +332,8 @@
 
     <!-- Waves Effect Plugin Js -->
     <script src="../../plugins/node-waves/waves.js"></script>
+    
+    <script src="../../plugins/multi-select/js/jquery.multi-select.js"></script>
 
     <!-- Custom Js -->
     <script src="../../js/admin.js"></script>

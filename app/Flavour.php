@@ -43,4 +43,9 @@ class Flavour extends Model
     {
         return $this->hasMany('App\FlavourSize');
     }
+    
+    public function flavour_ingredients()
+    {
+        return $this->hasMany('App\FlavourIngredient');
+    }
 }

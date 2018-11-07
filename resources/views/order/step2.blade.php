@@ -15,7 +15,7 @@
         <p>
             <b>Sabor {{ $i + 1 }}</b>
         </p>
-        <select id="flavour" name="flavour[]" class="form-control show-tick flavour_select" data-live-search="true">
+        <select id="flavour{{ $i }}" onchange="getIngredients(this)" name="flavour[]" class="form-control show-tick flavour_select" data-live-search="true">
             <option value="">Selecione um sabor</option>
             @if(count($categories->categoryFather->categoriesSon))
                 @foreach ($categories->categoryFather->categoriesSon as $cat)

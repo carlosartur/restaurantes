@@ -38,15 +38,19 @@
                                     <b>Categoria</b>
                                 </p>
                                 <select name="category" id="category" class="form-control show-tick">
-                                    <option value="">Selecione uma opção</option>
-                                    @foreach($Categories as $Category)
-                                        <option value="{{ $Category->id }}">
-                                            {{ $Category->name }}
-                                        </option>
+                                    <option value="">Selecione uma categoria</option>
+                                    @foreach ($Categories as $key => $category)
+                                        @if(!$category->categoriesSon)
+                                            @php continue; @endphp
+                                        @endif
+                                        <optgroup label="{{ $category->name }}">
+                                            @foreach($category->categoriesSon as $cat_son)
+                                                <option value="{{ $cat_son->id }}" {{ $cat_son->id == old('categories') ? 'selected' : '' }}>{{ $cat_son->name }}</option>
+                                            @endforeach
+                                        </optgroup>
                                     @endforeach
                                 </select>
-                            </div>
-
+                            </div>                            
                             <div class="col-md-4">
                                 <p>
                                     <b>Valor</b>
@@ -64,11 +68,20 @@
                                 </p>
                                 <div class="input-group">
                                     <div class="form-line">
-                                        <input value="{{ old('old_value') }}" type="text" id="old_value" name="old_value" class="form-control date coin" placeholder="Valor antigo" required>
+                                        <input values="{{ old('old_value') }}" type="text" id="old_value" name="old_value" class="form-control date coin" placeholder="Valor antigo" required>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="col-md-8">
+                                <p>
+                                    <b>Ingredientes</b>
+                                </p>
+                                <select id="ingredients" name="ingredients[]" class="ms" multiple="multiple">
+                                    @foreach ($Ingredients as $ingredient)
+                                        <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>   
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-md-3">
                                 <button class="btn btn-success waves-effect control-label">Ok</button>
                             </div>
@@ -95,6 +108,7 @@
     
     <script>
         $(() => {
+            $('#ingredients').multiSelect();
             $("#additional").click(function() {
                 if($("#additional").is(':checked')) {
                     $("#categories_div").show();

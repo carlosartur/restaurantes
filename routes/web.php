@@ -39,6 +39,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/add_flavour', 'FlavourController@add')->name('admin.flavour.add');
     Route::get('/delete_flavour/{id}', 'FlavourController@delete')->name('admin.flavour.delete');
     Route::post('/save_flavour/{id?}', 'FlavourController@save')->name('admin.flavour.save');
+    Route::get('/get_ingredients/{id?}', 'FlavourController@getIngredients')->name('admin.flavour.get_ingredients');
 
     Route::any('/retrieve_ingredient', 'IngredientController@index')->name('admin.ingredient.retrieve');
     Route::get('/edit_ingredient/{id}', 'IngredientController@edit')->name('admin.ingredient.edit');

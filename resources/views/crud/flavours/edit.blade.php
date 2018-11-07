@@ -79,6 +79,21 @@
                                     </div>
                                 </div>
                             @endforeach
+                            
+                            <div class="col-md-8">
+                                <p>
+                                    <b>Ingredientes</b>
+                                </p>
+                                @php 
+                                    $ingredients_ids = $Flavour->flavour_ingredients->pluck('ingredient_id')->all();
+                                @endphp
+                                <select id="ingredients" name="ingredients[]" class="ms" multiple="multiple">
+                                   
+                                    @foreach ($Ingredients as $ingredient)
+                                        <option value="{{ $ingredient->id }}" {{ in_array($ingredient->id, $ingredients_ids) ? "selected" : ''}}>{{ $ingredient->name }}</option>   
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="col-md-3">
                                 <button class="btn btn-success waves-effect control-label">Ok</button>
                             </div>
@@ -102,5 +117,19 @@
 
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/i18n/defaults-*.min.js"></script>
+
+    <script>
+        $(() => {
+            $('#ingredients').multiSelect();
+            $("#additional").click(function() {
+                if($("#additional").is(':checked')) {
+                    $("#categories_div").show();
+                } else {
+                    $("#categories_div").hide();
+                }
+            });
+        });
+    </script>
 @endpush
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Flavour;
 use App\FlavourSize;
+use App\FlavourIngredient;
+use App\Ingredient;
 use App\Helpers;
 use App\Size;
 use Illuminate\Support\Facades\DB;
@@ -68,7 +70,7 @@ class FlavourController extends Controller
                 'categories.name as category_name',
                 'categories.id as category_id'
             )
-            ->with('flavour_size.size')
+            ->with('flavour_size.size', 'flavour_ingredients.ingredients')
             ->orderBy('name', 'asc')
             ->join('categories', 'categories.id', '=', 'flavours.category_id')
             ->first();
@@ -82,8 +84,9 @@ class FlavourController extends Controller
             ->where('categories.id', $Flavour->category_id)
             ->select('*', DB::raw('sizes.name as name'))
             ->get();
+        $Ingredients = Ingredient::all();
         return view('crud.flavours.edit')
-            ->with(compact('Flavour', 'Categories', 'Sizes'));
+            ->with(compact('Flavour', 'Categories', 'Sizes', 'Ingredients'));
     }
 
     /**
@@ -92,10 +95,11 @@ class FlavourController extends Controller
      */
     public function save($id = false)
     {
-        $name = request()->name;
-        $old_value = request()->old_value ? request()->old_value : 0;
-        $new_value = request()->new_value ? request()->new_value : 0;
-        $category_id = request()->category ? request()->category : null;
+        $request = request();
+        $name = $request->name;
+        $old_value = $request->old_value ? $request->old_value : 0;
+        $new_value = $request->new_value ? $request->new_value : 0;
+        $category_id = $request->category ? $request->category : null;
         if ($id) {
             $Flavour = Flavour::find($id);
             if (empty($Flavour)) {
@@ -122,12 +126,19 @@ class FlavourController extends Controller
         $Flavour->new_value = Helpers::dinheiroParaFloat($new_value);
         $Flavour->category_id = $category_id;
         $Flavour->save();
-        if (is_array(request()->value_size)) {
-            foreach (request()->value_size as $key => $value) {
-                $FlavourSize = new FlavourSize();
-                $FlavourSize->add($Flavour, Size::find($key), Helpers::dinheiroParaFloat($value));
+        if (is_array($request->value_size)) {
+            foreach ($request->value_size as $key => $value) {
+                (new FlavourSize())->add($Flavour, Size::find($key), Helpers::dinheiroParaFloat($value));
             }
         }
+        if (is_array($request->ingredients)) {
+            FlavourIngredient::whereNotIn('ingredient_id', $request->ingredients)
+                ->where('flavour_id', $Flavour->id)->delete();
+            foreach ($request->ingredients as $key => $value) {
+                (new FlavourIngredient())->add($Flavour, $value);
+            }
+        }
+
         return redirect()->route('admin.flavour.retrieve');
     }
 
@@ -152,7 +163,8 @@ class FlavourController extends Controller
     {
         $Categories = Category::all();
         $Sizes = Size::all();
-        return view('crud.flavours.add')->with(compact('Categories', 'Sizes'));
+        $Ingredients = Ingredient::orderBy('name')->get();
+        return view('crud.flavours.add')->with(compact('Categories', 'Sizes', 'Ingredients'));
     }
 
     /**
@@ -192,5 +204,18 @@ class FlavourController extends Controller
         }
 
         return true;
+    }
+
+    /**
+     * Get ingredients by flavour
+     */
+    public function getIngredients(Request $request, $flavour_id)
+    {
+        $flavour = Flavour::find($flavour_id);
+        $data = FlavourIngredient::where('flavour_id', $flavour_id)
+            ->with('ingredients')
+            ->get()
+            ->pluck('ingredients.name', 'ingredients.id');
+        return response()->json(['flavour' => $flavour->name, 'ingredients' => $data]);
     }
 }
