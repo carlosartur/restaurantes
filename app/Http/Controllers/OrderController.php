@@ -9,6 +9,7 @@ use App\Flavour;
 use App\FlavourSize;
 use App\Order;
 use App\OrderItems;
+use App\Ingredient;
 use App\Person;
 use App\Size;
 use Illuminate\Http\Request;
@@ -118,6 +119,7 @@ class OrderController extends Controller
      */
     public function step3(Request $request)
     {
+        $excluded_ingredients = Ingredient::whereIn('id', $request->ingredients)->pluck('name')->all();
         $size = Size::find($request->sizes);
         $prize = $this->getPrize($size, $request->flavour, $request->categories);
         $flavours = Flavour::whereIn('id', $request->flavour)->get();
@@ -132,7 +134,7 @@ class OrderController extends Controller
                 ];
             }
         }
-        $request->session()->put("items.$keyCart", compact("size", "flavours", "prize", "additionals", "category"));
+        $request->session()->put("items.$keyCart", compact("size", "flavours", "prize", "additionals", "category", "excluded_ingredients"));
         return redirect()->route('admin.startOrder');
     }
 
@@ -280,9 +282,10 @@ class OrderController extends Controller
             $OrderItems->size_id = $item['size']->id;
             $OrderItems->flavours = implode(' | ', $item['flavours']->pluck('name')->all());
             $OrderItems->value = $item['prize'];
-            $OrderItems->save();
+            //$OrderItems->save();
             $OrderItemsList[$count]['item'] = $OrderItems;
             $OrderItemsList[$count]['size'] = $item['size'];
+            $OrderItemsList[$count]['excluded_ingredients'] = $item['excluded_ingredients'];
             $count++;
         }
 

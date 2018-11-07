@@ -66,9 +66,7 @@ var getIngredients = function ($this) {
 			optgroups_labels.push(optgroups[i].getAttribute("label"));
 		}
 		if (optgroups_labels.indexOf(response.flavour) == -1) {
-			ingredients.appendChild(
-				(new HtmlElement('optgroup')).setAttr('label', response.flavour)
-			);
+			ingredients.appendChild((new HtmlElement('optgroup')).setAttr('label', response.flavour));
 		}
 		for (var i in response.ingredients) {
 			$('#ingredients').multiSelect('addOption', { 

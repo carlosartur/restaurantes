@@ -82,7 +82,7 @@
                                         <th>Tamanho</th>
                                         <th>Sabores</th>
                                         <th>Valor</th>
-                                        <th>Borda/Massa/Adicionais</th>
+                                        <th>Adicionais/Não colocar</th>
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -99,6 +99,9 @@
                                                 {{ number_format($item['prize'], 2, ',', '.') }}
                                             </td>
                                             <td>
+                                                @if($item['excluded_ingredients'])
+                                                    Sem : {{ implode(', ', $item['excluded_ingredients']) }}
+                                                @endif
                                                 @foreach ($item['additionals'] as $item2)
                                                     {{ $item2['category']->name }} | Sabor : {{ $item2['flavour']->name }}<br>
                                                 @endforeach

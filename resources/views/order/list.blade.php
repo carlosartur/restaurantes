@@ -81,6 +81,7 @@
                     (new HtmlElement('td')).html(order_data[i].hasOwnProperty('category') && order_data[i].category.hasOwnProperty('name') ? order_data[i].category.name : '-'),
                     (new HtmlElement('td')).html(order_data[i].hasOwnProperty('size') && order_data[i].size.hasOwnProperty('name') ? order_data[i].size.name : '-'),
                     (new HtmlElement('td')).html(order_data[i].flavours.map((item) => { return item.hasOwnProperty('name') ? item.name : '-'; }).join(' - ')),
+                    (new HtmlElement('td')).html(order_data[i].hasOwnProperty('excluded_ingredients') && order_data[i].hasOwnProperty('excluded_ingredients') ? order_data[i].excluded_ingredients.join(' - <wbr>') : '-'),
                     (new HtmlElement('td')).html(formataDinheiro(order_data[i].prize))
                 ]));
             }
@@ -89,12 +90,14 @@
                     (new HtmlElement('th')).html('Categoria'),
                     (new HtmlElement('th')).html('Tamanho'),
                     (new HtmlElement('th')).html('Sabor'),
+                    (new HtmlElement('th')).html('Sem'),
                     (new HtmlElement('th')).html('Valor')
                 ]),
                 (new HtmlElement('tbody')).appendChildren(lines)
             ]).setClasses(['table']);
             swal({
-               html: String(table)
+                width: 600,
+                html: String(table)
             });
         });
     });

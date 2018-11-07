@@ -24,6 +24,9 @@
                     <td>
                         Sabores
                     </td>
+                    <td>
+                        Não colocar
+                    </td>
                 </tr>
                 @foreach($OrderItemsList as $item)
                     <tr>
@@ -32,6 +35,9 @@
                         </td>
                         <td>
                             {{ $item['item']->flavours }}
+                        </td>
+                        <td>
+                            {{ implode(', ', $item['excluded_ingredients']) }}
                         </td>
                     </tr>
                 @endforeach
