@@ -44,7 +44,7 @@
                             <div id="sizes_div"></div>
                         </div>
                         <div id="flavours_div"></div>
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <p>
                                 <b>Excluir ingredientes</b>
                             </p>

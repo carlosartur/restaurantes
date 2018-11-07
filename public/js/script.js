@@ -189,6 +189,23 @@ class HtmlElement {
     }
 
     /**
+     * 
+     * @param {string} tagName 
+     */
+    getChildrenByTag(tagName) {
+        var children = this.element.children;
+        var ret = [];
+        for (var i in children) {
+            let child = children[i];
+            console.log(child.tagName);
+            if (child.tagName && child.tagName.toLowerCase() == tagName.toLowerCase()) {
+                ret.push(child);
+            }
+        }
+        return ret;
+    }
+
+    /**
      * Get element
      */
     get element() {

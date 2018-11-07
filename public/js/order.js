@@ -26,7 +26,7 @@ var getSizes = function () {
 		}
 		var div = div.split("<<options>>").join(input);
 		$("#sizes_div").append(div);
-		$('select').selectpicker();
+		$('.show-tick').selectpicker();
 	}).fail(function () {
 		swal("Houve um erro ao obter os tamanhos desta categoria.");
 	});
@@ -44,7 +44,7 @@ var getFlavours = function ($this) {
 		url: `${route}/${size_id}/${category_id}`
 	}).done(function (response) {
 		$("#flavours_div").html(response);
-		$('select').selectpicker();
+		$('.show-tick').selectpicker();
 	}).fail(function () {
 		swal("Houve um erro ao obter os sabores.");
 	});
@@ -59,8 +59,19 @@ var getIngredients = function ($this) {
 	$.ajax({
 		url: `${route}/${flavour_id}`
 	}).done(function (response) {
+		var optgroups_labels = [];
+		var ingredients = HtmlElement.getById('ingredients');
+		var optgroups = ingredients.getChildrenByTag('optgroup');
+		for (var i in optgroups) {
+			optgroups_labels.push(optgroups[i].getAttribute("label"));
+		}
+		if (optgroups_labels.indexOf(response.flavour) == -1) {
+			ingredients.appendChild(
+				(new HtmlElement('optgroup')).setAttr('label', response.flavour)
+			);
+		}
 		for (var i in response.ingredients) {
-			$('#public-methods').multiSelect('addOption', { 
+			$('#ingredients').multiSelect('addOption', { 
 				value: i, 
 				text: response.ingredients[i], 
 				index: 0, 
