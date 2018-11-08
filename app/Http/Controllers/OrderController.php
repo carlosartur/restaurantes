@@ -8,6 +8,7 @@ use App\CategoriesSize;
 use App\Flavour;
 use App\FlavourSize;
 use App\Order;
+use App\Helpers;
 use App\OrderItems;
 use App\Ingredient;
 use App\Person;
@@ -348,5 +349,25 @@ class OrderController extends Controller
         }
         $people = Person::where('ind_name', $representante)->with('address')->get();
         return view('order.relatorio_pre_cadastro')->with(compact('people'));
+    }
+
+    /**
+     * Get new orders, to reload the page 
+     */
+    public function orderGetNew(Request $request)
+    {
+        $date = $request->has('data') ? date('Y-m-d H:i:s', strtotime($request->data)) : false;
+        $Orders = Order::with('person')->where('created_at', '>', $date)->get();
+        $return = $Orders->map(function($item) {
+            $ret = new \stdClass();
+            $ret->date = Helpers::dataBR($item->created_at);
+            $ret->data = json_decode($item->data, true);
+            $ret->person_name = $item->person->name;
+            $ret->itens_count = count($ret->data);
+            $ret->id = $item->id;
+            $ret->value = Helpers::floatParaDinheiro($item->value);
+            return $ret;
+        });
+        return response()->json($return);
     }
 }

@@ -23,7 +23,7 @@
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="orders_body">
                                     @foreach ($orders as $key => $item)
                                         <script>
                                             var data = typeof data == "undefined" ? {} : data;
@@ -70,30 +70,70 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.10/dist/sweetalert2.all.min.js"></script>
 <script src="{{ asset("/js/script.js") }}"></script>
 <script>
+    var loadTime = new Date();
+
+
+    setInterval(function() {
+        $.ajax({
+            url: "{{ route('order.get_new_orders') }}",
+            method: "post",
+            data: {
+                _token: "{{ csrf_token() }}",
+                data: loadTime.toISOString()
+            }
+        }).done((response) => {
+            if (response.length) {
+                swal('Novo(s) pedido(s) encontrado(s)!');
+                table = $hid('orders_body');
+                let tr = [];
+                for (var i in response) {
+                    let order = response[i];
+                    data[order.id] = order.data;
+                    tr.push(($h('tr')).setAttr('style', 'color:red;').appendChildren([
+                        ($h('td')).html(order.id),
+                        ($h('td')).html(order.date),
+                        ($h('td')).html(order.person_name),
+                        ($h('td')).html(order.itens_count),
+                        ($h('td')).html(order.value),
+                        ($h('td')).appendChild(
+                            $h('a').setAttr('href', '#')
+                                .setClasses(['btn', 'btn-info', 'visibility'])
+                                .setAttr('data-id', order.id)
+                                .setAttr('title', 'Ver itens')
+                                .html($h('i').setClasses(['material-icons']).html('visibility'))
+                        )
+                    ]));
+                }
+                table.prependChildren(tr);
+            }
+        });
+        loadTime = new Date();
+    }, 60000);
+    
     $(() => {
-        $('.visibility').click(function() {
+        $(document).on('click', '.visibility', function() {
             var id = $(this).data("id");
             var order_data = data[id];
-            var table = new HtmlElement('table');
+            var table = $h('table');
             var lines = [];
             for (var i in order_data) {
-                lines.push((new HtmlElement('tr')).appendChildren([
-                    (new HtmlElement('td')).html(order_data[i].hasOwnProperty('category') && order_data[i].category.hasOwnProperty('name') ? order_data[i].category.name : '-'),
-                    (new HtmlElement('td')).html(order_data[i].hasOwnProperty('size') && order_data[i].size.hasOwnProperty('name') ? order_data[i].size.name : '-'),
-                    (new HtmlElement('td')).html(order_data[i].flavours.map((item) => { return item.hasOwnProperty('name') ? item.name : '-'; }).join(' - ')),
-                    (new HtmlElement('td')).html(order_data[i].hasOwnProperty('excluded_ingredients') && order_data[i].hasOwnProperty('excluded_ingredients') ? order_data[i].excluded_ingredients.join(' - <wbr>') : '-'),
-                    (new HtmlElement('td')).html(formataDinheiro(order_data[i].prize))
+                lines.push(($h('tr')).appendChildren([
+                    ($h('td')).html(order_data[i].hasOwnProperty('category') && order_data[i].category.hasOwnProperty('name') ? order_data[i].category.name : '-'),
+                    ($h('td')).html(order_data[i].hasOwnProperty('size') && order_data[i].size.hasOwnProperty('name') ? order_data[i].size.name : '-'),
+                    ($h('td')).html(order_data[i].flavours.map((item) => { return item.hasOwnProperty('name') ? item.name : '-'; }).join(' - ')),
+                    ($h('td')).html(order_data[i].hasOwnProperty('excluded_ingredients') && order_data[i].hasOwnProperty('excluded_ingredients') ? order_data[i].excluded_ingredients.join(' - <wbr>') : '-'),
+                    ($h('td')).html(formataDinheiro(order_data[i].prize))
                 ]));
             }
             table.appendChildren([
-                (new HtmlElement('thead')).appendChildren([
-                    (new HtmlElement('th')).html('Categoria'),
-                    (new HtmlElement('th')).html('Tamanho'),
-                    (new HtmlElement('th')).html('Sabor'),
-                    (new HtmlElement('th')).html('Sem'),
-                    (new HtmlElement('th')).html('Valor')
+                ($h('thead')).appendChildren([
+                    ($h('th')).html('Categoria'),
+                    ($h('th')).html('Tamanho'),
+                    ($h('th')).html('Sabor'),
+                    ($h('th')).html('Sem'),
+                    ($h('th')).html('Valor')
                 ]),
-                (new HtmlElement('tbody')).appendChildren(lines)
+                ($h('tbody')).appendChildren(lines)
             ]).setClasses(['table']);
             swal({
                 width: 600,

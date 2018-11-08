@@ -180,6 +180,26 @@ class HtmlElement {
     }
 
     /**
+     * Put a child to element
+     * @param {HtmlElement} child 
+     */
+    prependChild(child) {
+        this.element.insertBefore(child.element, this.element.firstChild);
+        return this;
+    }
+
+    /**
+     * Put elements to element
+     * @param {array} children 
+     */
+    prependChildren(children) {
+        for(var i in children) {
+            this.prependChild(children[i]);
+        }
+        return this;
+    }
+
+    /**
      * Set inner html to element
      * @param {string} stringHtml 
      */
@@ -228,3 +248,6 @@ class HtmlElement {
         return new HtmlElement(null, id);
     }
 }
+
+var $h = function(tag) { return new HtmlElement(tag); };
+var $hid = function(tag) { return HtmlElement.getById(tag); };

@@ -72,6 +72,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/order_person', 'OrderController@orderPerson')->name('admin.order_person');
     Route::post('/order_step3', 'OrderController@step3')->name('admin.step3');
     Route::post('/order_ok', 'OrderController@order_ok')->name('admin.order_ok');
+    Route::post('/order_get_new', 'OrderController@orderGetNew')->name('order.get_new_orders');
     Route::get('/orders_list', 'OrderController@ordersList')->name('admin.orders');
 
 
