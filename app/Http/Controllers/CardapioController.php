@@ -43,7 +43,7 @@ class CardapioController extends Controller
         }
         $category_data = Category
             ::where('name', "like", "%$category%")
-            ->with('categoriesSon.flavours', 'categoriesSon.sizes')
+            ->with('categoriesSon.flavours.flavour_ingredients.ingredients', 'categoriesSon.sizes')
             ->first();
         $category_father_name = $category_data->name;
         $obj = new \stdClass();
@@ -55,6 +55,16 @@ class CardapioController extends Controller
                 $flavour_val = $fl->new_value;
                 foreach ($item->sizes as $size) {
                     $ingredients = [];
+                    if ($fl->flavour_ingredients) {
+                        foreach ($fl->flavour_ingredients as $ingredients_rel) {
+                            $ingredients[] = [
+                                "Name" => $ingredients_rel->ingredients->name,
+                                "Type" => "Checkbox",
+                                "Required" => false,
+                                "Ordered" => true
+                            ];
+                        }
+                    }
                     $price = $flavour_val > $size->pivot->value ? $flavour_val : $size->pivot->value;
                     $obj->Items[] = [
                         "Name" => "{$flavour_name} {$size->name}",
