@@ -29,7 +29,7 @@ Route::get('/autocomplete_postcode/{nome?}', 'OrderController@autocompletePostco
 Route::get('/autocomplete_city/{nome?}', 'OrderController@autocompleteCity')->name('admin.autocomplete_city');
 Route::get('/autocomplete_neighborhood/{nome?}', 'OrderController@autocompleteNeighborhood')->name('admin.autocomplete_neighborhood');
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware('auth')->middleware('role:admin')->prefix('admin')->group(function () {
     Route::get('/', 'HomeController@index')->name('admin.home');
     Route::get('/edit_home_page/{saved?}', 'HomepageController@editHomePageForm')->name('admin.homepage.editHomePageForm');
     Route::post('/edit_home_page', 'HomepageController@editHomePageEdit')->name('admin.homepage.editHomePageEdit');
